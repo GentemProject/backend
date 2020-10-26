@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "main": "index.js",
+  "author": "Jean Paúl Mayorga",
   "scripts": {
     "prebuild": "yarn clean",
     "build": "tsc",
@@ -10,7 +11,6 @@
     "dev": "tsc-watch --onSuccess \"node build/app.js\"",
     "format": "prettier --write \"src/**/*.ts\" --write \"package.json\"",
     "format:check": "prettier --check \"src/**/*.ts\" --check \"package.json\"",
-    "start": "node ./src/app.ts",
     "migrate:all": "ts-node src/scripts/migrateCauses.ts && ts-node src/scripts/migrateOrgs.ts"
   },
   "dependencies": {
