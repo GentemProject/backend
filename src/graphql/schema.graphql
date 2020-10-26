@@ -1,0 +1,133 @@
+type Query {
+	# Authentication
+	getNewAccessToken(token: String!): String
+
+	# Users
+	getMe: User
+
+	# Causes
+	getCauses: [Cause]
+
+	# Organizations
+	getOrganizations(
+		limit: Float,
+		userId: String,
+		lastOrganizationId: String,
+		causeId: String,
+		country: String
+	): [Organization]
+	getOrganization(organizationId: String, slug: String): Organization
+}
+
+type Mutation {
+	# Authentication
+	signIn(email: String!, password: String!): Auth
+	signUp(name: String!, email: String!, password: String!): Auth
+
+	# Causes
+	createCause(name: String!): Cause
+	deleteCause(causeId: String!): Boolean
+
+	#Organizations
+	createOrganization(
+		name: String!
+
+		causesIds: [String]!
+
+		goal: String!
+		description: String!
+		howItIsUsingDonations: String!
+
+		logoUrl: String!
+		wallUrl: String
+
+		city: String
+		state: String
+		country: String
+		address: String
+		mapUrl: String
+
+		contactEmail: String
+		contactPhone: String
+		contactWebsite: String
+
+		userId: String
+		adminName: String
+		adminEmail: String
+
+		facebookUrl: String
+		instagramUrl: String
+		twitterUrl: String
+		whatsappPhone: String
+
+		donationLinks: [String]
+		donationBankAccountName: String
+		donationBankAccountType: String
+		donationBankAccountNumber: String
+	): Organization
+}
+
+type Auth {
+	accessToken: String
+	refreshToken: String
+	user: User
+}
+
+type User {
+	id: ID
+	isAdmin: String
+	name: String
+	email: String
+	createdAt: String
+	updatedAt: String
+}
+
+type Cause {
+	id: ID
+	name: String
+	createdAt: String
+	updatedAt: String
+}
+
+type Organization {
+	id: ID
+  slug: String
+  name: String
+
+  causesIds: [String]
+	causes: [Cause]
+
+  goal: String
+  description: String
+  howItIsUsingDonations: String
+
+  logoUrl: String
+  wallUrl: String
+
+  city: String
+  state: String
+  country: String
+  address: String
+  mapUrl: String
+
+  contactEmail: String
+  contactPhone: String
+  contactWebsite: String
+
+  userId: String
+  adminName: String
+  adminEmail: String
+
+  facebookUrl: String
+  instagramUrl: String
+  twitterUrl: String
+  whatsappPhone: String
+
+  donationLinks: [String]
+  donationBankAccountName: String
+  donationBankAccountType: String
+  donationBankAccountNumber: String
+
+  createdAt: String
+  updatedAt: String
+}
