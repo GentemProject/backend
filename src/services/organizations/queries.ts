@@ -43,6 +43,10 @@ export const organizationsQueries = {
         limit = options.limit;
       }
 
+      const sort = {
+        createdAt: 1,
+      };
+
       let filters = {};
       if (options.userId) {
         filters = { ...filters, userId: options.userId };
@@ -59,7 +63,7 @@ export const organizationsQueries = {
 
       logger.child(filters).info('filters getOrganizations query');
 
-      const organizations = await OrganizationModel.find(filters).limit(limit).exec();
+      const organizations = await OrganizationModel.find(filters).limit(limit).sort(sort).exec();
 
       return organizations;
     } catch (error) {
