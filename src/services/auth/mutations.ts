@@ -1,62 +1,63 @@
 import bcrypt from 'bcryptjs';
 import { AuthenticationError } from 'apollo-server-express';
 
-import { Context } from '../../graphql';
+// import { Context } from '../../graphql';
 import { logger } from '../../utils';
 
-import { createUser, getUser } from '../users';
+import { getUser } from '../users';
 import { generateAccessToken } from '.';
 import { generateRefreshToken } from './controller';
 
+import { GoTrueClient } from '@supabase/gotrue-js';
+
 export const authMutations = {
-  signUp: async (
-    _root: any,
-    options: { name: string; email: string; password: string },
-    context: Context,
-  ) => {
+  signUp: async (_: any, options: { name: string; email: string; password: string }) => {
     try {
       logger.info('mutation signUp');
 
-      const userId = context.userId;
-      if (userId) {
-        throw new AuthenticationError('You are logged.');
-      }
-
       // then we save the user info in mongodb
       logger.info('creating user in mongodb...');
-      const user = await createUser({
-        isAdmin: false,
-        name: options.name,
-        email: options.email,
-        password: options.password,
+
+      const auth = new GoTrueClient({
+        url: 'https://jsovuatvsbclfuyaljkw.supabase.co',
+        headers: {
+          apikey:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxMTk4NjgzNiwiZXhwIjoxOTI3NTYyODM2fQ.qUIPUi0S-09j30UxUKvClM0S4fI3NFphy-JRCrv-JNI',
+          Authorization: 'Bearer 855a15f2-9456-4de7-84ad-c8f76cc2da48',
+        },
       });
+      const data = await auth.api.signUpWithEmail(options.email, options.password);
+      console.log('DATA');
+      console.log(data);
 
-      if (!user) {
-        throw new Error('Error creating user.');
-      }
+      // const user = await createUser({
+      //   isAdmin: false,
+      //   name: options.name,
+      //   email: options.email,
+      //   password: options.password,
+      // });
 
-      // then create the jwt token
-      logger.info('creating jwt token...');
-      const payload = {
-        userId: user.id,
-        isAdmin: user.isAdmin,
-      };
-      const accessToken = await generateAccessToken(payload);
-      const refreshToken = await generateRefreshToken(payload);
+      // if (!user) {
+      //   throw new Error('Error creating user.');
+      // }
 
-      return { accessToken, refreshToken, user };
+      // // then create the jwt token
+      // logger.info('creating jwt token...');
+      // const payload = {
+      //   userId: user.id,
+      //   isAdmin: user.isAdmin,
+      // };
+      // const accessToken = await generateAccessToken(payload);
+      // const refreshToken = await generateRefreshToken(payload);
+
+      return { accessToken: '', refreshToken: '', user: '' };
     } catch (error) {
       throw new Error(error);
     }
   },
-  signIn: async (_root: any, options: { email: string; password: string }, context: Context) => {
+  signIn: async (_: any, options: { email: string; password: string }) => {
     try {
       logger.info('mutation signIn');
-
-      const userId = context.userId;
-      if (userId) {
-        throw new AuthenticationError('You are logged.');
-      }
 
       logger.info('verifying user in mongodb...');
 

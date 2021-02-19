@@ -17,7 +17,7 @@ async function main() {
     console.log('mapping....');
     const organizationsToInsert = organizations.map(organization => {
       const oldCausesNames = oldCausesData.data
-        .filter(cause => organization.primaryData.communityId.includes(cause.cat_id[0]))
+        .filter(cause => organization.primaryData.causeId.includes(cause.cat_id[0]))
         .map(cause => cause.cat_name);
       const newCauses = newCausesData
         .filter(cause => oldCausesNames.includes(cause.name))
@@ -41,7 +41,8 @@ async function main() {
         state: '',
         country: organization.location?.country || '',
         address: '',
-        mapUrl: organization.location?.map || '',
+        coordenateX: organization.location?.coordenates?.x || 0,
+        coordenateY: organization.location?.coordenates?.y || 0,
 
         contactEmail: organization.contact?.email || '',
         contactPhone: organization.contact?.phone || '',
@@ -51,13 +52,13 @@ async function main() {
         adminName: organization.adminInfo?.adminName || '',
         adminEmail: organization.adminInfo?.adminEmail || '',
 
-        facebookUrl: organization.contact?.facebook || '',
-        instagramUrl: organization.contact?.instagram || '',
-        twitterUrl: organization.contact?.twitter || '',
-        whatsappPhone: organization.contact?.whatsapp || '',
+        facebookUrl: organization.socialMedia?.facebook || '',
+        instagramUrl: organization.socialMedia?.instagram || '',
+        twitterUrl: organization.socialMedia?.twitter || '',
+        whatsappPhone: organization.socialMedia?.whatsapp || '',
 
-        donationLinks: [organization.paymentData?.link || ''],
-        donationBankAccountName: organization.paymentData?.bankAccount || '',
+        donationLinks: [organization.donationData?.link || ''],
+        donationBankAccountName: organization.donationData?.bankAccount || '',
         donationBankAccountType: '',
         donationBankAccountNumber: '',
       };

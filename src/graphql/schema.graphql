@@ -75,7 +75,7 @@ type Auth {
 
 type User {
 	id: ID
-	isAdmin: String
+	isAdmin: Boolean
 	name: String
 	email: String
 	createdAt: String

@@ -17,7 +17,8 @@ export interface OrganizationInterface extends mongoose.Document {
   state?: string;
   country?: string;
   address?: string;
-  mapUrl?: string;
+  coordenateX?: number;
+  coordenateY?: number;
 
   contactEmail?: string;
   contactPhone?: string;

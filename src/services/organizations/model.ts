@@ -59,8 +59,11 @@ const OrganizationSchema = new mongoose.Schema(
     address: {
       type: String,
     },
-    mapUrl: {
-      type: String,
+    coordenateX: {
+      type: Number,
+    },
+    coordenateY: {
+      type: Number,
     },
     contactEmail: {
       type: String,
