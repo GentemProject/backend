@@ -7,7 +7,7 @@ import {
   OrganizationsTypes,
 } from '../services/organizations';
 
-export const resolvers = {
+export const resolvers: any = {
   Query: {
     ...authQueries,
     ...usersQueries,

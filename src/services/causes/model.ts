@@ -1,18 +1,9 @@
-import mongoose from 'mongoose';
+import { getModelForClass, ModelOptions, prop } from '@typegoose/typegoose';
 
-import { CauseInterface } from '.';
+@ModelOptions({ schemaOptions: { timestamps: true } })
+export class Cause {
+  @prop({ required: true, index: true, unique: true, trim: true })
+  public name: string;
+}
 
-const CauseSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-  },
-  {
-    timestamps: true,
-  },
-);
-
-export const CauseModel = mongoose.model<CauseInterface>('Cause', CauseSchema);
+export const CausesModel = getModelForClass(Cause);

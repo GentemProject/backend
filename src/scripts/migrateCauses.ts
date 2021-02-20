@@ -1,7 +1,7 @@
 import fs from 'fs';
 import data from './oldCausesData.json';
 
-import { CauseModel } from '../services/causes';
+import { CausesModel } from '../services/causes';
 import { connectDatabase } from '../middlewares';
 
 async function main() {
@@ -20,7 +20,7 @@ async function main() {
     });
 
     console.log('inserting in database...');
-    const newCauses = await CauseModel.create(causesToInsert);
+    const newCauses = await CausesModel.create(causesToInsert);
 
     console.log('creating json file');
     const toSave = JSON.stringify(newCauses);

@@ -1,12 +1,16 @@
 import { logger } from '../../utils';
-import { getCauses } from '../causes';
+import { causesQueries } from '../causes';
 import { OrganizationInterface } from './interface';
 
 export const OrganizationsTypes = {
   Organization: {
     causes: async (organization: OrganizationInterface) => {
       try {
-        return await getCauses({ causesIds: organization.causesIds });
+        const causes = causesQueries.getCauses(null, {
+          causesIds: organization.causesIds as string[],
+        });
+
+        return causes;
       } catch (error) {
         logger.child(error).error('error getType type');
         return [];

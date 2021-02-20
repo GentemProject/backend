@@ -6,7 +6,7 @@ type Query {
 	getMe: User
 
 	# Causes
-	getCauses: [Cause]
+	getCauses(causesIds: [String]): [Cause]
 
 	# Organizations
 	getOrganizations(
