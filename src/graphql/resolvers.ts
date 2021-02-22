@@ -1,5 +1,5 @@
-import { authMutations, authQueries } from '../services/auth';
-import { usersQueries } from '../services/users';
+import { authMutations } from '../services/auth';
+import { usersQueries, userMutations } from '../services/users';
 import { causesMutations, causesQueries } from '../services/causes';
 import {
   organizationsMutations,
@@ -9,13 +9,13 @@ import {
 
 export const resolvers: any = {
   Query: {
-    ...authQueries,
     ...usersQueries,
     ...causesQueries,
     ...organizationsQueries,
   },
   Mutation: {
     ...authMutations,
+    ...userMutations,
     ...causesMutations,
     ...organizationsMutations,
   },

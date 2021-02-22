@@ -1,19 +1,12 @@
-import mongoose from 'mongoose';
+import { getModelForClass, prop } from '@typegoose/typegoose';
 import { consts } from '../../config';
 
-import { RefreshTokenInterface } from './interface';
+class RefreshToken {
+  @prop({ index: true, required: true, unique: true })
+  public token: string;
 
-const RefreshTokenSchema = new mongoose.Schema({
-  token: {
-    index: true,
-    type: String,
-    required: true,
-    unique: true,
-  },
-  createdAt: { type: Date, default: Date.now, expires: consts.EXPIRES_REFRESH_TOKEN_IN },
-});
+  @prop({ default: Date.now, expires: consts.EXPIRES_REFRESH_TOKEN_IN })
+  public createdAt?: Date;
+}
 
-export const RefreshTokenModel = mongoose.model<RefreshTokenInterface>(
-  'RefreshToken',
-  RefreshTokenSchema,
-);
+export const RefreshTokenModel = getModelForClass(RefreshToken);

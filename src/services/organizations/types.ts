@@ -10,7 +10,7 @@ export const OrganizationsTypes = {
           causesIds: organization.causesIds as string[],
         });
 
-        return causes;
+        return causes as any;
       } catch (error) {
         logger.child(error).error('error getType type');
         return [];

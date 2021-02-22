@@ -1,9 +1,9 @@
 import { logger } from '../../utils';
 
-import { CausesModel } from './model';
+import { Cause, CausesModel } from './model';
 
 export const causesQueries = {
-  getCauses: async (_root: any, options: { causesIds: string[] }) => {
+  getCauses: async (_root: any, options: { causesIds: string[] }): Promise<Cause[]> => {
     try {
       logger.info('query getCauses');
 
@@ -18,6 +18,7 @@ export const causesQueries = {
       }
 
       const causes = await CausesModel.find(find);
+
       return causes;
     } catch (error) {
       throw new Error(error);

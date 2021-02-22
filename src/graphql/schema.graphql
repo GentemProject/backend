@@ -1,8 +1,7 @@
 type Query {
-	# Authentication
-	getNewAccessToken(token: String!): String
-
 	# Users
+	getUsers(query: String, page: Float, limit: Float, orderBy: String, orderSort: String): [User]
+	getUser(userId: String!): User
 	getMe: User
 
 	# Causes
@@ -10,19 +9,27 @@ type Query {
 
 	# Organizations
 	getOrganizations(
+		query: String,
+		page: Float,
 		limit: Float,
-		userId: String,
-		lastOrganizationId: String,
+		orderBy: String,
+		orderSort: String,
 		causeId: String,
-		country: String
+		country: String,
+		userId: String,
 	): [Organization]
 	getOrganization(organizationId: String, slug: String): Organization
 }
 
 type Mutation {
 	# Authentication
+	signNewAccessToken(refreshToken: String!): String
 	signIn(email: String!, password: String!): Auth
 	signUp(name: String!, email: String!, password: String!): Auth
+
+	# Users
+	createUser(name: String!, email: String!, password: String!, isAdmin: String!): User
+	deleteUser(userId: String!): Boolean
 
 	# Causes
 	createCause(name: String!): Cause
@@ -75,9 +82,10 @@ type Auth {
 
 type User {
 	id: ID
-	isAdmin: Boolean
 	name: String
 	email: String
+	isAdmin: Boolean
+	lastLoginAt: String
 	createdAt: String
 	updatedAt: String
 }

@@ -15,12 +15,12 @@ export const plugins: ApolloServerExpressConfig['plugins'] = [
         didEncounterErrors({ errors }) {
           logger.child({ errors }).error('encounter errors');
         },
-        willSendResponse({ request, response }) {
+        willSendResponse({ request }) {
           const endRequestTime = Date.now();
           const responseTime = `${endRequestTime - startRequestTime} ms`;
 
           if (request.operationName !== 'IntrospectionQuery') {
-            logger.child({ responseTime, response: response.data }).info('outcoming response');
+            logger.child({ responseTime }).info('outcoming response');
           }
         },
       };

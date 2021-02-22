@@ -11,7 +11,7 @@ export async function connectDatabase() {
   }
 
   try {
-    mongoose.connect(env.X_MONGO_URL, {
+    await mongoose.connect(env.X_MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       dbName: env.X_MONGO_DATABASE,

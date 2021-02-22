@@ -9,7 +9,7 @@ export interface Context {
 
 export const context = async (context: ExpressContext): Promise<Context> => {
   await connectDatabase();
-  const { userId, isAdmin } = await getAuth(context);
+  const auth = await getAuth(context);
 
-  return { userId, isAdmin };
+  return auth;
 };

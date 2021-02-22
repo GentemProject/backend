@@ -1,2 +1,2 @@
-export * from './connectDatabase';
-export * from './getAuth';
+export * from './database';
+export * from './auth';

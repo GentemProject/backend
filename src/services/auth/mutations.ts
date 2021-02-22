@@ -1,88 +1,83 @@
 import bcrypt from 'bcryptjs';
-import { AuthenticationError } from 'apollo-server-express';
 
-// import { Context } from '../../graphql';
+import { UsersModel } from '../users';
 import { logger } from '../../utils';
-
-import { getUser } from '../users';
-import { generateAccessToken } from '.';
-import { generateRefreshToken } from './controller';
-
-import { GoTrueClient } from '@supabase/gotrue-js';
+import { createAccessToken, createRefreshToken, verifyRefreshToken } from '../../lib';
 
 export const authMutations = {
-  signUp: async (_: any, options: { name: string; email: string; password: string }) => {
+  signNewAccessToken: async (_root: any, options: { refreshToken: string }) => {
     try {
-      logger.info('mutation signUp');
+      logger.info('mutation: signNewToken');
 
-      // then we save the user info in mongodb
-      logger.info('creating user in mongodb...');
+      if (!options.refreshToken) {
+        throw new Error('You need provide a refreshToken.');
+      }
 
-      const auth = new GoTrueClient({
-        url: 'https://jsovuatvsbclfuyaljkw.supabase.co',
-        headers: {
-          apikey:
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxMTk4NjgzNiwiZXhwIjoxOTI3NTYyODM2fQ.qUIPUi0S-09j30UxUKvClM0S4fI3NFphy-JRCrv-JNI',
-          Authorization: 'Bearer 855a15f2-9456-4de7-84ad-c8f76cc2da48',
-        },
-      });
-      const data = await auth.api.signUpWithEmail(options.email, options.password);
-      console.log('DATA');
-      console.log(data);
+      const newAccessToken = await verifyRefreshToken(options.refreshToken);
 
-      // const user = await createUser({
-      //   isAdmin: false,
-      //   name: options.name,
-      //   email: options.email,
-      //   password: options.password,
-      // });
-
-      // if (!user) {
-      //   throw new Error('Error creating user.');
-      // }
-
-      // // then create the jwt token
-      // logger.info('creating jwt token...');
-      // const payload = {
-      //   userId: user.id,
-      //   isAdmin: user.isAdmin,
-      // };
-      // const accessToken = await generateAccessToken(payload);
-      // const refreshToken = await generateRefreshToken(payload);
-
-      return { accessToken: '', refreshToken: '', user: '' };
+      return newAccessToken;
     } catch (error) {
       throw new Error(error);
     }
   },
-  signIn: async (_: any, options: { email: string; password: string }) => {
+  signUp: async (_root: any, options: { name: string; email: string; password: string }) => {
     try {
-      logger.info('mutation signIn');
+      logger.info('mutation: signUp');
 
-      logger.info('verifying user in mongodb...');
-
-      // Get the user by email
-      const user = await getUser({ email: options.email });
-      if (!user) {
-        throw new AuthenticationError('The user do not exists.');
+      const userExists = await UsersModel.findOne({ email: options.email });
+      if (userExists) {
+        throw new Error(`User with email ${options.email} already exists.`);
       }
 
-      // Then we validate the password
-      const isValid = await bcrypt.compare(options.password, user.password);
-      if (!isValid) {
+      const userCreated = await UsersModel.create({
+        name: options.name,
+        email: options.email,
+        password: options.password,
+        isAdmin: false,
+      });
+      if (!userCreated) {
+        throw new Error('Cannot create a new user');
+      }
+
+      // we create tokens
+      const payload = {
+        userId: userCreated.id,
+        isAdmin: userCreated.isAdmin,
+      };
+      const accessToken = await createAccessToken(payload);
+      const refreshToken = await createRefreshToken(payload);
+
+      return { accessToken, refreshToken, user: userCreated as any };
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+  signIn: async (_root: any, options: { email: string; password: string }) => {
+    try {
+      logger.info('mutation: signIn');
+
+      const userExists = await UsersModel.findOne({ email: options.email });
+      if (!userExists) {
+        throw new Error(`User not exists.`);
+      }
+
+      const isValidPassword = await bcrypt.compare(options.password, userExists.password);
+      if (!isValidPassword) {
         throw new Error('Invalid password.');
       }
 
-      // then create the jwt token
-      logger.info('creating jwt token...');
-      const payload = {
-        userId: user.id,
-        isAdmin: user.isAdmin,
-      };
-      const accessToken = await generateAccessToken(payload);
-      const refreshToken = await generateRefreshToken(payload);
+      // update last login
+      await UsersModel.updateOne({ _id: userExists.id }, { lastLoginAt: new Date() });
 
-      return { accessToken, refreshToken, user };
+      // we create tokens
+      const payload = {
+        userId: userExists.id,
+        isAdmin: userExists.isAdmin,
+      };
+      const accessToken = await createAccessToken(payload);
+      const refreshToken = await createRefreshToken(payload);
+
+      return { accessToken, refreshToken, user: userExists as any };
     } catch (error) {
       throw new Error(error);
     }

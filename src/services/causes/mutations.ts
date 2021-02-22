@@ -3,14 +3,14 @@ import { AuthenticationError } from 'apollo-server-express';
 import { Context } from '../../graphql';
 import { logger } from '../../utils';
 
-import { CausesModel } from './model';
+import { Cause, CausesModel } from './model';
 
 export const causesMutations = {
-  createCause: async (_root: any, options: { name: string }, { isAdmin }: Context) => {
+  createCause: async (_root: any, options: { name: string }, context: Context): Promise<Cause> => {
     try {
       logger.info('mutation: createCause');
 
-      if (!isAdmin) {
+      if (!context.isAdmin) {
         throw new AuthenticationError('Only admins can create causes.');
       }
 
@@ -22,17 +22,21 @@ export const causesMutations = {
       throw new Error(error);
     }
   },
-  deleteCause: async (_root: any, options: { causeId: string }, { isAdmin }: Context) => {
+  deleteCause: async (
+    _root: any,
+    options: { causeId: string },
+    context: Context,
+  ): Promise<boolean> => {
     try {
       logger.info('mutation createCause');
 
-      if (!isAdmin) {
+      if (!context.isAdmin) {
         throw new AuthenticationError('Only admins can delete causes.');
       }
 
       const success = await CausesModel.deleteOne(options);
 
-      return success;
+      return success ? true : false;
     } catch (error) {
       logger.error('mutation: createCause error', { error: error.message });
       throw new Error(error);
