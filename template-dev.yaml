@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 256
+    Runtime: 'nodejs10.x'
+
+Resources:
+  Lambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: !Sub '${AWS::StackName}'
+      CodeUri: './'
+      Handler: 'build/lambda.handler'
+      # Policies:
+      #   - Version: '2012-10-17'
+      #     Statement:
+      #       - Effect: 'Allow'
+      #         Action:
+      #           - 'ses:SendEmail'
+      #         Resource:
+      #           - '*'
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: '/{all+}'
+            Method: 'any'
+  ApiDomain:
+    Type: AWS::ApiGateway::DomainName
+    Properties:
+      EndpointConfiguration:
+        Types: [REGIONAL]
+      RegionalCertificateArn: arn:aws:acm:us-east-1:125241585097:certificate/1aed7ab0-0f3f-4caa-b346-7133cfb1216e
+      DomainName: api-dev.gentem.org
+
+  # BasePathMapping:
+  #   DependsOn: [ServerlessRestApi]
+  #   Type: AWS::ApiGateway::BasePathMapping
+  #   Properties:
+  #     DomainName: !Ref ApiDomain
+  #     RestApiId: !Ref ServerlessRestApi
+  #     Stage: Prod
+Outputs:
+  Lambda:
+    Description: 'Lambda ARN'
+    Value: !GetAtt Lambda.Arn
+    Export:
+      Name: !Sub '${AWS::StackName}-lambda-arn'
