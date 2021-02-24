@@ -40,7 +40,7 @@ jobs:
       - name: Deploying Production Backend
         uses: falnyr/aws-sam-deploy-action@v1.0.0
         env:
-          TEMPLATE: 'template-prod.yaml'
+          TEMPLATE: 'template-dev.yaml'
           AWS_STACK_NAME: 'gentem-dev-backend'
           AWS_REGION: 'us-east-1'
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
