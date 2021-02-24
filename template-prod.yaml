@@ -32,7 +32,7 @@ Resources:
     Type: AWS::ApiGateway::DomainName
     Properties:
       EndpointConfiguration:
-        Types: [EDGE]
+        Types: [REGIONAL]
       RegionalCertificateArn: arn:aws:acm:us-east-1:125241585097:certificate/1aed7ab0-0f3f-4caa-b346-7133cfb1216e
       DomainName: api-prod.gentem.org
 
