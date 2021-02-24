@@ -9,6 +9,7 @@ jobs:
   continuous_deployment:
     name: Continuos deployment (production)
     runs-on: ubuntu-18.04
+    environment: production
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -29,7 +30,6 @@ jobs:
       - name: Build
         run: yarn run build
       - name: Print Production Environment Variables
-        environment: production
         run: printenv > .env
         env:
           NODE_ENV: ${{ secrets.NODE_ENV }}
