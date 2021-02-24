@@ -12,7 +12,6 @@ export function init() {
   app.use(
     cors({
       origin: [
-        'http://localhost:3030',
         'http://localhost:3000',
         'http://localhost:8080',
         'https://gentem.org',
