@@ -6,7 +6,7 @@ const { str } = envalid;
 export const env = envalid.cleanEnv(
   process.env,
   {
-    PORT: str(),
+    PORT: str({ default: '3000' }),
     NODE_ENV: str(),
     X_MONGO_URL: str(),
     X_MONGO_DATABASE: str(),
