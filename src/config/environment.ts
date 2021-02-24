@@ -13,5 +13,5 @@ export const env = envalid.cleanEnv(
     JWT_TOKEN_SECRET: str(),
     JWT_TOKEN_SECRET_REFRESH: str(),
   },
-  { strict: true, dotEnvPath: path.resolve(__dirname, '../../.env.production') },
+  { strict: true, dotEnvPath: path.resolve(__dirname, '../../.env') },
 );
