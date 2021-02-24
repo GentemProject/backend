@@ -9,6 +9,7 @@ jobs:
   continuous_deployment:
     name: Continuos deployment (Development)
     runs-on: ubuntu-18.04
+    environment: production
     steps:
       - name: Checkout
         uses: actions/checkout@v2
