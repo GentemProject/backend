@@ -32,7 +32,7 @@ jobs:
       - name: Print Production Environment Variables
         run: printenv > .env
         env:
-          NODE_ENV: ${{ secrets.NODE_ENV }}
+          NODE_ENV: production
           X_MONGO_URL: ${{ secrets.X_MONGO_URL }}
           X_MONGO_DATABASE: ${{ secrets.X_MONGO_DATABASE }}
           JWT_TOKEN_SECRET: ${{ secrets.JWT_TOKEN_SECRET }}
