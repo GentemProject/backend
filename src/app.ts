@@ -2,6 +2,7 @@ import cors from 'cors';
 import aws from 'aws-sdk';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
+
 import { apolloServerConfig } from './graphql';
 import { env } from './config';
 import { healthApi } from './routes';

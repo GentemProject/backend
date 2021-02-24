@@ -11,6 +11,7 @@ export async function connectDatabase() {
   }
 
   try {
+    logger.info('start databse connection.');
     await mongoose.connect(env.X_MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -21,7 +22,8 @@ export async function connectDatabase() {
 
     return true;
   } catch (error) {
+    console.log(error);
     logger.child({ error }).error('database connection failed.');
-    throw new Error('database connection failed.');
+    return false;
   }
 }
