@@ -37,21 +37,21 @@ jobs:
           X_MONGO_DATABASE: ${{ secrets.X_MONGO_DATABASE }}
           JWT_TOKEN_SECRET: ${{ secrets.JWT_TOKEN_SECRET }}
           JWT_TOKEN_SECRET_REFRESH: ${{ secrets.JWT_TOKEN_SECRET_REFRESH }}
-      # - name: Print Production Environment Variables
-      #   run: printenv > .env
-      #   env:
-      #     NODE_ENV: production
-      #     X_MONGO_URL: ${{ secrets.X_MONGO_URL }}
-      #     X_MONGO_DATABASE: ${{ secrets.X_MONGO_DATABASE }}
-      #     JWT_TOKEN_SECRET: ${{ secrets.JWT_TOKEN_SECRET }}
-      #     JWT_TOKEN_SECRET_REFRESH: ${{ secrets.JWT_TOKEN_SECRET_REFRESH }}
-      # - name: Deploying Production Backend
-      #   uses: falnyr/aws-sam-deploy-action@v1.0.0
-      #   env:
-      #     TEMPLATE: 'template-prod.yaml'
-      #     AWS_STACK_NAME: 'gentem-prod-backend'
-      #     AWS_REGION: 'us-east-1'
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     AWS_DEPLOY_BUCKET: 'gentem-prod-backend'
-      #     CAPABILITIES: CAPABILITY_IAM CAPABILITY_AUTO_EXPAND
+      - name: Print Production Environment Variables
+        run: printenv > .env
+        env:
+          NODE_ENV: production
+          X_MONGO_URL: ${{ secrets.X_MONGO_URL }}
+          X_MONGO_DATABASE: ${{ secrets.X_MONGO_DATABASE }}
+          JWT_TOKEN_SECRET: ${{ secrets.JWT_TOKEN_SECRET }}
+          JWT_TOKEN_SECRET_REFRESH: ${{ secrets.JWT_TOKEN_SECRET_REFRESH }}
+      - name: Deploying Production Backend
+        uses: falnyr/aws-sam-deploy-action@v1.0.0
+        env:
+          TEMPLATE: 'template-prod.yaml'
+          AWS_STACK_NAME: 'gentem-prod-backend'
+          AWS_REGION: 'us-east-1'
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEPLOY_BUCKET: 'gentem-prod-backend'
+          CAPABILITIES: CAPABILITY_IAM CAPABILITY_AUTO_EXPAND
