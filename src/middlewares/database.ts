@@ -22,6 +22,6 @@ export async function connectDatabase() {
     return true;
   } catch (error) {
     logger.child({ error }).error('database connection failed.');
-    return false;
+    throw new Error('database connection failed.');
   }
 }

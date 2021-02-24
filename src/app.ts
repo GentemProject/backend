@@ -4,6 +4,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { apolloServerConfig } from './graphql';
 import { env } from './config';
+import { healthApi } from './routes';
 
 export function init() {
   aws.config.update({ region: 'us-east-1' });
@@ -20,6 +21,8 @@ export function init() {
       ],
     }),
   );
+
+  app.use(healthApi);
 
   const apolloServer = new ApolloServer(apolloServerConfig);
   apolloServer.applyMiddleware({ app });
