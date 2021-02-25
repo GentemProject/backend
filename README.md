@@ -1,6 +1,10 @@
-# Gentem backend in GraphQL
+# Gentem backend in GraphQL Express
 
-Deployed in aws lambda concept
+Deployed in Amazon Web Services using lambda concept.
+
+## Healthy Environments
+Production Enviroment: [https://api-prod.gentem.org/health](https://api-prod.gentem.org/health)<br />
+Development Enviroment: [https://api-dev.gentem.org/health](https://api-dev.gentem.org/health)
 
 This project uses:<br />
 [Typescript](https://www.typescriptlang.org/): TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.<br />
