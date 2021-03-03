@@ -1,4 +1,6 @@
 # Gentem backend in GraphQL Express
+[![Continuos integration](https://github.com/GentemProject/backend/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/GentemProject/backend/actions/workflows/ci.yml)
+[![Continuos deployment (Production)](https://github.com/GentemProject/backend/actions/workflows/cd-prod.yml/badge.svg?branch=master)](https://github.com/GentemProject/backend/actions/workflows/cd-prod.yml)
 
 Deployed in Amazon Web Services using lambda concept.
 
