@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 
 import { UsersModel } from '../users';
 import { logger } from '../../utils';
-import { createAccessToken, createRefreshToken, verifyRefreshToken } from '../../lib';
+import { createAccessToken, createRefreshToken, sendEmail, verifyRefreshToken } from '../../lib';
 
 export const authMutations = {
   signNewAccessToken: async (_root: any, options: { refreshToken: string }) => {
@@ -35,9 +35,17 @@ export const authMutations = {
         password: options.password,
         isAdmin: false,
       });
-      if (!userCreated) {
-        throw new Error('Cannot create a new user');
-      }
+
+      await sendEmail({
+        to: options.email,
+        subject: 'Cuenta creada, sigue los siguientes pasos para confirmarla.',
+        message: `
+          <h1>Bienvenido a Gentem</h1>
+          <p>Estamos felices de tenerte con nosotros.</p>
+
+          <p>Para confirmar tu cuenta usa el siguiente link</p>
+        `,
+      });
 
       // we create tokens
       const payload = {
