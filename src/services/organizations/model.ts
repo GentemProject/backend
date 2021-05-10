@@ -99,6 +99,9 @@ const OrganizationSchema = new mongoose.Schema(
     donationLinks: {
       type: [String],
     },
+    donationProducts: {
+      type: String,
+    },
     donationBankAccountName: {
       type: String,
     },

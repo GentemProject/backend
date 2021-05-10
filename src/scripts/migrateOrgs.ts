@@ -57,6 +57,7 @@ async function main() {
         twitterUrl: organization.socialMedia?.twitter || '',
         whatsappPhone: organization.socialMedia?.whatsapp || '',
 
+        donationProducts: organization.donationData?.products || '',
         donationLinks: [organization.donationData?.link || ''],
         donationBankAccountName: organization.donationData?.bankAccount || '',
         donationBankAccountType: '',
