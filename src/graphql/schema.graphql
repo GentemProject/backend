@@ -16,6 +16,9 @@ type Query {
     orderSort: String
     causeId: String
     country: String
+    donationProducts: String
+    donationBankAccountName: String
+    donationLinks: String
     userId: String
   ): [Organization]
   getOrganization(organizationId: String, slug: String): Organization
@@ -72,6 +75,7 @@ type Mutation {
     donationBankAccountName: String
     donationBankAccountType: String
     donationBankAccountNumber: String
+    donationProducts: String
   ): Organization
 }
 
@@ -137,6 +141,7 @@ type Organization {
   donationBankAccountName: String
   donationBankAccountType: String
   donationBankAccountNumber: String
+  donationProducts: String
 
   createdAt: String
   updatedAt: String
