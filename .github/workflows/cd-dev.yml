@@ -37,8 +37,8 @@ jobs:
           X_MONGO_DATABASE: ${{ secrets.X_MONGO_DATABASE }}
           JWT_TOKEN_SECRET: ${{ secrets.JWT_TOKEN_SECRET }}
           JWT_TOKEN_SECRET_REFRESH: ${{ secrets.JWT_TOKEN_SECRET_REFRESH }}
-      - name: Deploying Production Backend
-        uses: falnyr/aws-sam-deploy-action@v1.0.0
+      - name: Deploying Development Backend
+        uses: falnyr/aws-sam-deploy-action@v1.3.0
         env:
           TEMPLATE: 'template-dev.yaml'
           AWS_STACK_NAME: 'gentem-dev-backend'
