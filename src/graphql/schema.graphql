@@ -14,7 +14,7 @@ type Query {
     limit: Float
     orderBy: String
     orderSort: String
-    causeId: String
+    causesIds: [String]
     country: String
     donationProducts: String
     donationBankAccountName: String

@@ -31,7 +31,7 @@ export const organizationsQueries = {
       limit: number;
       userId: string;
       lastOrganizationId: string;
-      causeId: string;
+      causesIds: string[];
       country: string;
       donationProducts: string;
       donationBankAccountName: string;
@@ -57,8 +57,8 @@ export const organizationsQueries = {
       if (options.lastOrganizationId) {
         filters = { ...filters, _id: { $gt: options.lastOrganizationId } };
       }
-      if (options.causeId) {
-        filters = { ...filters, causesIds: options.causeId };
+      if (options.causesIds.length > 0) {
+        filters = { ...filters, causesIds: options.causesIds };
       }
       if (options.country) {
         filters = { ...filters, country: options.country };
