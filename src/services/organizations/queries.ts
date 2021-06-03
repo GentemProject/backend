@@ -28,9 +28,10 @@ export const organizationsQueries = {
   getOrganizations: async (
     _root: any,
     options: {
+      query: string;
+      page: number;
       limit: number;
       userId: string;
-      lastOrganizationId: string;
       causesIds: string[];
       country: string;
       donationProducts: string;
@@ -41,10 +42,8 @@ export const organizationsQueries = {
     try {
       logger.info('query getOrganizations');
 
-      let limit = 10;
-      if (options.limit) {
-        limit = options.limit;
-      }
+      const limit = options.limit || 10;
+      const page = options.page || 1;
 
       const sort = {
         createdAt: 1,
@@ -54,10 +53,7 @@ export const organizationsQueries = {
       if (options.userId) {
         filters = { ...filters, userId: options.userId };
       }
-      if (options.lastOrganizationId) {
-        filters = { ...filters, _id: { $gt: options.lastOrganizationId } };
-      }
-      if (options.causesIds.length > 0) {
+      if (options.causesIds && options.causesIds.length > 0) {
         filters = { ...filters, causesIds: options.causesIds };
       }
       if (options.country) {
@@ -75,9 +71,16 @@ export const organizationsQueries = {
 
       logger.child(filters).info('filters getOrganizations query');
 
-      const organizations = await OrganizationModel.find(filters).limit(limit).sort(sort).exec();
+      const count = await OrganizationModel.find(filters).countDocuments();
+      const rows = await OrganizationModel.find(filters)
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .sort(sort);
 
-      return organizations;
+      return {
+        count,
+        rows,
+      };
     } catch (error) {
       logger.child(error).error('error getOrganizations query');
       throw new Error(error);

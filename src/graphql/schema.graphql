@@ -20,7 +20,7 @@ type Query {
     donationBankAccountName: String
     donationLinks: String
     userId: String
-  ): [Organization]
+  ): OrganizationsResponse
   getOrganization(organizationId: String, slug: String): Organization
 }
 
@@ -100,6 +100,11 @@ type Cause {
   name: String
   createdAt: String
   updatedAt: String
+}
+
+type OrganizationsResponse {
+  count: Float
+  rows: [Organization]
 }
 
 type Organization {
