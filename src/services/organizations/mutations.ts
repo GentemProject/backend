@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 import { logger } from '../../utils';
 
-import { OrganizationModel } from '.';
+// import { OrganizationModel } from '.';
 
 export const organizationsMutations = {
   createOrganization: async (
@@ -44,13 +44,14 @@ export const organizationsMutations = {
   ) => {
     try {
       logger.info('mutation createOrganization');
+      console.log(options);
 
-      const organizationMapped = {
-        ...options,
-        causesIds: options.causesIds.map(causeId => mongoose.Types.ObjectId(causeId)),
-      };
-      const organization = await OrganizationModel.create(organizationMapped);
-      return organization;
+      // const organizationMapped = {
+      //   ...options,
+      //   causesIds: options.causesIds.map(causeId => mongoose.Types.ObjectId(causeId)),
+      // };
+      // const organization = await OrganizationModel.create(organizationMapped);
+      return options;
     } catch (error) {
       logger.child(error).error('error getOrganizations controller');
       throw new Error(error);

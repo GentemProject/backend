@@ -19,7 +19,12 @@ export const causesQueries = {
 
       const causes = await CausesModel.find(find);
 
-      return causes;
+      return causes.map(cause => {
+        return {
+          causeId: cause.id,
+          ...cause,
+        };
+      });
     } catch (error) {
       throw new Error(error);
     }

@@ -6,22 +6,6 @@ type Query {
 
   # Causes
   getCauses(causesIds: [String]): [Cause]
-
-  # Organizations
-  getOrganizations(
-    query: String
-    page: Float
-    limit: Float
-    orderBy: String
-    orderSort: String
-    causesIds: [String]
-    country: String
-    donationProducts: String
-    donationBankAccountName: String
-    donationLinks: String
-    userId: String
-  ): OrganizationsResponse
-  getOrganization(organizationId: String, slug: String): Organization
 }
 
 type Mutation {
@@ -37,46 +21,6 @@ type Mutation {
   # Causes
   createCause(name: String!): Cause
   deleteCause(causeId: String!): Boolean
-
-  #Organizations
-  createOrganization(
-    name: String!
-
-    causesIds: [String]!
-
-    goal: String!
-    description: String!
-    howItIsUsingDonations: String!
-
-    logoUrl: String!
-    wallUrl: String
-
-    city: String
-    state: String
-    country: String
-    address: String
-    coordenateX: String
-    coordenateY: String
-
-    contactEmail: String
-    contactPhone: String
-    contactWebsite: String
-
-    userId: String
-    adminName: String
-    adminEmail: String
-
-    facebookUrl: String
-    instagramUrl: String
-    twitterUrl: String
-    whatsappPhone: String
-
-    donationLinks: [String]
-    donationBankAccountName: String
-    donationBankAccountType: String
-    donationBankAccountNumber: String
-    donationProducts: String
-  ): Organization
 }
 
 type Auth {
@@ -96,58 +40,9 @@ type User {
 }
 
 type Cause {
-  id: ID
+  causeId: ID
   name: String
   createdAt: String
   updatedAt: String
 }
 
-type OrganizationsResponse {
-  count: Float
-  rows: [Organization]
-}
-
-type Organization {
-  id: ID
-  slug: String
-  name: String
-
-  causesIds: [String]
-  causes: [Cause]
-
-  goal: String
-  description: String
-  howItIsUsingDonations: String
-
-  logoUrl: String
-  wallUrl: String
-
-  city: String
-  state: String
-  country: String
-  address: String
-  coordenateX: String
-  coordenateY: String
-
-  contactEmail: String
-  contactPhone: String
-  contactWebsite: String
-
-  userId: String
-  adminName: String
-  adminEmail: String
-
-  facebookUrl: String
-  instagramUrl: String
-  twitterUrl: String
-  whatsappPhone: String
-
-  donationLinks: [String]
-  donationBankAccountName: String
-  donationBankAccountType: String
-  donationBankAccountNumber: String
-  donationProducts: String
-
-  createdAt: String
-  updatedAt: String
-}

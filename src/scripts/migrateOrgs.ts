@@ -3,7 +3,7 @@ import data from './oldOrganizationsData.json';
 import newCausesData from './causesMigrated.json';
 import oldCausesData from './oldCausesData.json';
 
-import { OrganizationModel } from '../services/organizations';
+// import { OrganizationModel } from '../services/organizations';
 import { connectDatabase } from '../middlewares';
 
 async function main() {
@@ -67,7 +67,9 @@ async function main() {
 
     console.log('Inserting in database ...');
 
-    await OrganizationModel.create(organizationsToInsert);
+    console.log({ organizationsToInsert });
+
+    // await OrganizationModel.create(organizationsToInsert);
     console.log('success!');
 
     process.exit(0);
