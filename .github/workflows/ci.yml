@@ -31,5 +31,14 @@ jobs:
         run: yarn format:check
       - name: Build
         run: yarn build
+      - name: Print Development Environment Variables
+        run: printenv > .env
+        env:
+          NODE_ENV: development
+          X_MONGO_URL: ${{ secrets.X_MONGO_URL }}
+          X_MONGO_DATABASE: ${{ secrets.X_MONGO_DATABASE }}
+          JWT_TOKEN_SECRET: ${{ secrets.JWT_TOKEN_SECRET }}
+          JWT_TOKEN_SECRET_REFRESH: ${{ secrets.JWT_TOKEN_SECRET_REFRESH }}
+      
       - name: Run All tests
         run: yarn jest
