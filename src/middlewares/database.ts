@@ -27,3 +27,16 @@ export async function connectDatabase() {
     return false;
   }
 }
+
+export async function closeDatabaseConnection() {
+  try {
+    logger.info('closing databse connection.');
+    await mongoose.connection.close();
+    isConnected = false;
+    return true;
+  } catch (error) {
+    console.log(error);
+    logger.child({ error }).error('database connection failed.');
+    return false;
+  }
+}

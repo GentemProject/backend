@@ -1,4 +1,4 @@
-import { connectDatabase } from '../../../middlewares';
+import { closeDatabaseConnection, connectDatabase } from '../../../middlewares';
 import { CausesResolver } from '../resolver';
 
 describe('Causes service tests', () => {
@@ -61,5 +61,9 @@ describe('Causes service tests', () => {
     const { slug } = mock;
     const isDeleted = await CausesResolver.Mutation.deleteCause(null, { slug });
     expect(isDeleted).toBe(true);
+  });
+
+  afterAll(async () => {
+    await closeDatabaseConnection();
   });
 });
