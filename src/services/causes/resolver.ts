@@ -20,6 +20,7 @@ export const CausesResolver = {
 
         const result = await CauseModel.findOne(find);
 
+        logger.info('query getCause finished');
         return result;
       } catch (error) {
         logger.error(`error getCause: "${error.message}"`);
@@ -41,6 +42,7 @@ export const CausesResolver = {
 
         const results = await CauseModel.find(find);
 
+        logger.info('query getCauses finished');
         return results;
       } catch (error) {
         logger.error(`error getCauses: "${error.message}"`);
@@ -64,6 +66,7 @@ export const CausesResolver = {
 
         const newCause = await CauseModel.create(options.input);
 
+        logger.info('mutation createCause finished');
         return newCause;
       } catch (error) {
         logger.error(`error createCauses: "${error.message}"`);
@@ -77,7 +80,7 @@ export const CausesResolver = {
       // context: Context,
     ) => {
       try {
-        logger.info('mutation createCause');
+        logger.info('mutation deleteCause');
 
         // if (!context.isAdmin) {
         //   throw new AuthenticationError('Only admins can delete causes.');
@@ -88,6 +91,7 @@ export const CausesResolver = {
         const itemsDeleted = causeDeleted.deletedCount || 0;
         const hasItemsDeleted = itemsDeleted > 0;
 
+        logger.info('mutation deleteCause finished');
         return hasItemsDeleted;
       } catch (error) {
         logger.error(`error deleteCauses: "${error.message}"`);

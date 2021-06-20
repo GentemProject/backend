@@ -1,7 +1,8 @@
-import { closeDatabaseConnection, connectDatabase } from '../../../middlewares';
 import { CausesResolver } from '../resolver';
+import { closeDatabaseConnection, connectDatabase } from '../../../middlewares';
 
 describe('Causes service tests', () => {
+  // jest.setTimeout(30000);
   const mock = {
     name: 'My test cause',
     slug: 'my-test-cause',
@@ -12,6 +13,10 @@ describe('Causes service tests', () => {
 
   beforeAll(async () => {
     await connectDatabase();
+  });
+
+  afterAll(async () => {
+    await closeDatabaseConnection();
   });
 
   test('should return null, trying to create a cause without name', async () => {
@@ -61,9 +66,5 @@ describe('Causes service tests', () => {
     const { slug } = mock;
     const isDeleted = await CausesResolver.Mutation.deleteCause(null, { slug });
     expect(isDeleted).toBe(true);
-  });
-
-  afterAll(async () => {
-    return await closeDatabaseConnection();
   });
 });
