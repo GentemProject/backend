@@ -13,11 +13,11 @@ describe('database tests', () => {
     });
   });
 
-  afterAll(async () => {
-    await database.connection.close();
-  });
-
   test('should connect to the database', () => {
     expect(database.connection.readyState).toBe(1);
+  });
+
+  afterAll(async () => {
+    await database.connection.close();
   });
 });
