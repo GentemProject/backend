@@ -1,23 +1,15 @@
-import mongoose from 'mongoose';
-
-import { env } from '../../config';
+import { closeDatabaseConnection, connectDatabase, isConnected } from '../database';
 
 describe('database tests', () => {
-  let database: typeof mongoose;
-
   beforeAll(async () => {
-    database = await mongoose.connect(env.X_MONGO_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      dbName: env.X_MONGO_DATABASE,
-    });
+    return await connectDatabase();
   });
 
   test('should connect to the database', () => {
-    expect(database.connection.readyState).toBe(1);
+    expect(isConnected).toBe(true);
   });
 
   afterAll(async () => {
-    await database.connection.close();
+    return await closeDatabaseConnection();
   });
 });

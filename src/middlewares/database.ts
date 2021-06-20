@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { logger } from '../utils';
 import { env } from '../config';
 
-let isConnected = false;
+export let isConnected = false;
 
 export async function connectDatabase() {
   if (isConnected) {
@@ -21,22 +21,20 @@ export async function connectDatabase() {
     logger.info('database is connected.');
 
     return true;
-  } catch (error) {
-    console.log(error);
-    logger.child({ error }).error('database connection failed.');
+  } catch {
+    logger.error('database connection failed.');
     return false;
   }
 }
 
 export async function closeDatabaseConnection() {
   try {
-    logger.info('closing databse connection.');
+    logger.info('closing database connection.');
     await mongoose.connection.close();
     isConnected = false;
     return true;
-  } catch (error) {
-    console.log(error);
-    logger.child({ error }).error('database connection failed.');
+  } catch {
+    logger.error('database connection failed.');
     return false;
   }
 }

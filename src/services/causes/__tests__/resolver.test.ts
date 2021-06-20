@@ -64,6 +64,6 @@ describe('Causes service tests', () => {
   });
 
   afterAll(async () => {
-    await closeDatabaseConnection();
+    return await closeDatabaseConnection();
   });
 });

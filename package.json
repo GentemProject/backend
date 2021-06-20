@@ -16,7 +16,7 @@
     "migrate:causes": "ts-node src/scripts/migrateCauses.ts",
     "migrate:orgs": "ts-node src/scripts/migrateOrgs.ts",
     "migrate:all": "ts-node src/scripts/migrateCauses.ts && ts-node src/scripts/migrateOrgs.ts",
-    "test": "jest --verbose --maxWorkers=1 --detectOpenHandles",
+    "test": "jest --verbose --maxWorkers=1 --detectOpenHandles --forceExit",
     "test:watch": "jest --watchAll --verbose --maxWorkers=1"
   },
   "dependencies": {
