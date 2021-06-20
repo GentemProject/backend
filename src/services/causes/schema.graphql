@@ -1,0 +1,20 @@
+type Cause {
+  id: ID
+  name: String
+  slug: String
+  createdAt: Date
+  updatedAt: Date
+}
+input CauseInput {
+  name: String!
+}
+
+type Query {
+  cause(id: String, slug: String): Cause
+  causes(ids: [String], query: String): [Cause]
+}
+
+type Mutation {
+  createCause(input: CauseInput): Cause
+  deleteCause(id: String!): Boolean
+}

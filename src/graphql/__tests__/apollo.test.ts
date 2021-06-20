@@ -1,7 +1,12 @@
-// import { newTypeDefs } from '../apollo';
+import { typeDefs, resolvers } from '../apollo';
 
 describe('apollo tests', () => {
-  test('should have at least one .graphql file in build folder', () => {
-    expect(1).toBeGreaterThanOrEqual(1);
+  test('should have at least one typedef', () => {
+    const definitionsCount = typeDefs.definitions.length;
+    expect(definitionsCount).toBeGreaterThanOrEqual(1);
+  });
+  test('should have at least one resolver', () => {
+    const resovlersCount = resolvers.length;
+    expect(resovlersCount).toBeGreaterThanOrEqual(1);
   });
 });

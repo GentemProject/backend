@@ -1,0 +1,50 @@
+type Organization {
+  id: ID
+  ownerId: String,
+  causesId: [String]
+  causes: [Cause]
+  slug: String
+  logo: String
+  name: String
+  goal: String
+  description: String
+  useDonationsFor: String
+  email: String
+  phone: String
+  website: String
+  adminFullName: String
+  adminEmail: String
+  addresses: [String]
+  cities: [String]
+  states: [String]
+  countries: [String]
+  coordenateX: [Float]
+  coordenateY: [Float]
+  facebookUrl: String
+  instagramUrl: String
+  twitterUrl: String
+  whatsappUrl: String
+  donationLinks: [String],
+  donationsProducts: String
+  donationBankAccountName: String
+  donationBankAccountType: String
+  donationBankAccountNumber: String
+  createdAt: String
+  updatedAt: String
+}
+type OrganizationsPayload{
+  count: Float
+  rows: [Organization]
+}
+
+type Query {
+  organizations(
+    query: String
+    page: Float
+    limit: Float
+    causesId: [String]
+    countries: [String]
+  ): OrganizationsPayload
+  organization(id: String, slug: String): Organization
+}
+

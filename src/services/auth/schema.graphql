@@ -1,0 +1,12 @@
+
+type Mutation {
+  signNewAccessToken(refreshToken: String!): String
+  signIn(email: String!, password: String!): Auth
+  signUp(name: String!, email: String!, password: String!): Auth
+}
+
+type Auth {
+  accessToken: String
+  refreshToken: String
+  user: User
+}
