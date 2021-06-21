@@ -8,7 +8,7 @@ on:
 jobs:
   continuous_deployment:
     name: Continuos deployment (Development)
-    runs-on: ubuntu-latest
+    runs-on: 	macos-latest
     environment: development
     steps:
       - name: Checkout
@@ -27,7 +27,6 @@ jobs:
       - name: Install dependencies
         if: steps.cache-yarn-dir.outputs.cache-hit != 'true'
         run: yarn install --production --frozen-lockfile
-        # run: yarn install
       - name: Build
         run: yarn build
       - name: Print Development Environment Variables
