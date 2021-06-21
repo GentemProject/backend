@@ -1,8 +1,7 @@
 import { CausesResolver } from '../resolver';
-import { closeDatabaseConnection, connectDatabase } from '../../../middlewares';
+import { connectDatabase, closeDatabaseConnection } from '../../../middlewares';
 
 describe('Causes service tests', () => {
-  // jest.setTimeout(30000);
   const mock = {
     name: 'My test cause',
     slug: 'my-test-cause',
