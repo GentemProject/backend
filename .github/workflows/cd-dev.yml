@@ -8,7 +8,7 @@ on:
 jobs:
   continuous_deployment:
     name: Continuos deployment (Development)
-    runs-on: 	macos-latest
+    runs-on: 	ubuntu-latest
     environment: development
     steps:
       - name: Checkout
