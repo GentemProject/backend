@@ -8,10 +8,9 @@ import { ApolloResolver, CausesResolver, OrganizationResolver } from '../service
 
 import { context } from './apollo-context';
 import { plugins } from './apollo-plugins';
-import { resolvers as oldResolvers } from './resolvers';
 
 export const typeDefs = mergeTypeDefs(loadFilesSync(join(__dirname, '../services/**/*.graphql')));
-export const resolvers = [ApolloResolver, CausesResolver, OrganizationResolver, oldResolvers];
+export const resolvers = [ApolloResolver, CausesResolver, OrganizationResolver];
 
 export const apolloServerConfig: ApolloServerExpressConfig = {
   typeDefs,
