@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+// import bcrypt from 'bcryptjs';
 
 import { UsersModel } from '../users';
 import { logger } from '../../utils';
@@ -64,28 +64,30 @@ export const authMutations = {
     try {
       logger.info('mutation: signIn');
 
-      const userExists = await UsersModel.findOne({ email: options.email });
-      if (!userExists) {
-        throw new Error(`User not exists.`);
-      }
+      console.log(options);
 
-      const isValidPassword = await bcrypt.compare(options.password, userExists.password);
-      if (!isValidPassword) {
-        throw new Error('Invalid password.');
-      }
+      // const userExists = await UsersModel.findOne({ email: options.email });
+      // if (!userExists) {
+      //   throw new Error(`User not exists.`);
+      // }
 
-      // update last login
-      await UsersModel.updateOne({ _id: userExists.id }, { lastLoginAt: new Date() });
+      // const isValidPassword = await bcrypt.compare(options.password, userExists.password);
+      // if (!isValidPassword) {
+      //   throw new Error('Invalid password.');
+      // }
 
-      // we create tokens
-      const payload = {
-        userId: userExists.id,
-        isAdmin: userExists.isAdmin,
-      };
-      const accessToken = await createAccessToken(payload);
-      const refreshToken = await createRefreshToken(payload);
+      // // update last login
+      // await UsersModel.updateOne({ _id: userExists.id }, { lastLoginAt: new Date() });
 
-      return { accessToken, refreshToken, user: userExists as any };
+      // // we create tokens
+      // const payload = {
+      //   userId: userExists.id,
+      //   isAdmin: userExists.isAdmin,
+      // };
+      // const accessToken = await createAccessToken(payload);
+      // const refreshToken = await createRefreshToken(payload);
+
+      return { accessToken: 'yeah', refreshToken: 'yeah 2' };
     } catch (error) {
       throw new Error(error);
     }

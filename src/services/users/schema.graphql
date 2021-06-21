@@ -1,0 +1,21 @@
+type Query {
+  # Users
+  getUsers(query: String, page: Float, limit: Float, orderBy: String, orderSort: String): [User]
+  getUser(userId: String!): User
+  getMe: User
+}
+
+type Mutation {
+  createUser(name: String!, email: String!, password: String!, isAdmin: String!): User
+  deleteUser(userId: String!): Boolean
+}
+
+type User {
+  id: ID
+  name: String
+  email: String
+  isAdmin: Boolean
+  lastLoginAt: String
+  createdAt: String
+  updatedAt: String
+}
