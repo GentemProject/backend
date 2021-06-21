@@ -27,7 +27,7 @@ jobs:
       - name: Install dependencies
         if: steps.cache-yarn-dir.outputs.cache-hit != 'true'
         run: yarn install --production --frozen-lockfile
-        run: yarn install
+        # run: yarn install
       - name: Build
         run: yarn build
       - name: Print Development Environment Variables
