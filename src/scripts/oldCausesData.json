@@ -2,12 +2,6 @@
   "data": [
     {
       "cat_id": [
-        0
-      ],
-      "cat_name": "Todas las causas"
-    },
-    {
-      "cat_id": [
         1
       ],
       "cat_name": "Primera infancia (0-6)"

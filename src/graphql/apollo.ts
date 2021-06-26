@@ -1,12 +1,16 @@
+import { join } from 'path';
 import { ApolloServerExpressConfig } from 'apollo-server-express';
-import { importSchema } from 'graphql-import';
+import { loadFilesSync } from '@graphql-tools/load-files';
+import { mergeTypeDefs } from '@graphql-tools/merge';
 
 import { env } from '../config';
+import { ApolloResolver, CausesResolver, OrganizationResolver } from '../services';
+
 import { context } from './apollo-context';
 import { plugins } from './apollo-plugins';
-import { resolvers } from './resolvers';
 
-const typeDefs = importSchema('./src/graphql/schema.graphql');
+export const typeDefs = mergeTypeDefs(loadFilesSync(join(__dirname, '../services/**/*.graphql')));
+export const resolvers = [ApolloResolver, CausesResolver, OrganizationResolver];
 
 export const apolloServerConfig: ApolloServerExpressConfig = {
   typeDefs,

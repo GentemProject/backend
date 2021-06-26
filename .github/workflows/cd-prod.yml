@@ -38,7 +38,7 @@ jobs:
           JWT_TOKEN_SECRET: ${{ secrets.JWT_TOKEN_SECRET }}
           JWT_TOKEN_SECRET_REFRESH: ${{ secrets.JWT_TOKEN_SECRET_REFRESH }}
       - name: Deploying Production Backend
-        uses: falnyr/aws-sam-deploy-action@v1.0.0
+        uses: falnyr/aws-sam-deploy-action@v1.3.0
         env:
           TEMPLATE: 'template-prod.yaml'
           AWS_STACK_NAME: 'gentem-prod-backend'

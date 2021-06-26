@@ -1,122 +1,99 @@
 import mongoose from 'mongoose';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const slugify = require('slugify-mongoose');
+import { getModelForClass, ModelOptions, pre, prop } from '@typegoose/typegoose';
 
-import { OrganizationInterface } from '.';
+import { slugify } from '../../utils';
 
-const OrganizationSchema = new mongoose.Schema(
-  {
-    slug: {
-      type: String,
-      lowercase: true,
-      trim: true,
-      index: true,
-      unique: true,
-      slug: 'name',
-    },
-    name: {
-      type: String,
-      required: true,
-      lowercase: true,
-      trim: true,
-    },
-    causesIds: {
-      type: [mongoose.Types.ObjectId],
-      required: true,
-    },
-    goal: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    howItIsUsingDonations: {
-      type: String,
-      required: true,
-    },
-    logoUrl: {
-      type: String,
-      required: true,
-      default: '',
-    },
-    wallUrl: {
-      type: String,
-    },
-    city: {
-      type: String,
-      index: true,
-    },
-    state: {
-      type: String,
-      index: true,
-    },
-    country: {
-      type: String,
-      index: true,
-    },
-    address: {
-      type: String,
-    },
-    coordenateX: {
-      type: Number,
-    },
-    coordenateY: {
-      type: Number,
-    },
-    contactEmail: {
-      type: String,
-    },
-    contactPhone: {
-      type: String,
-    },
-    contactWebsite: {
-      type: String,
-    },
-    userId: {
-      type: String,
-      index: true,
-    },
-    adminName: {
-      type: String,
-    },
-    adminEmail: {
-      type: String,
-    },
-    facebookUrl: {
-      type: String,
-    },
-    instagramUrl: {
-      type: String,
-    },
-    twitterUrl: {
-      type: String,
-    },
-    whatsappPhone: {
-      type: String,
-    },
-    donationLinks: {
-      type: [String],
-    },
-    donationBankAccountName: {
-      type: String,
-    },
-    donationBankAccountType: {
-      type: String,
-    },
-    donationBankAccountNumber: {
-      type: String,
-    },
-  },
-  {
-    timestamps: true,
-  },
-);
+@pre<Organization>('save', function (next) {
+  if (!this.isModified('name')) return next();
+  try {
+    this.slug = slugify(this.name);
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+})
+@ModelOptions({ schemaOptions: { timestamps: true } })
+export class Organization {
+  @prop({ index: true })
+  public ownerId?: mongoose.Types.ObjectId;
 
-OrganizationSchema.plugin(slugify);
+  @prop({ index: true, required: true, type: () => [mongoose.Types.ObjectId] })
+  public causesId: mongoose.Types.ObjectId[];
 
-export const OrganizationModel = mongoose.model<OrganizationInterface>(
-  'Organization',
-  OrganizationSchema,
-);
+  @prop({ index: true, unique: true })
+  public slug?: string;
+
+  @prop({ trim: true, lowercase: true, default: 'https://gentem.s3.amazonaws.com/default.jpg' })
+  public logo?: string;
+
+  @prop({ index: true, required: true, lowercase: true, trim: true })
+  public name: string;
+
+  @prop({ trim: true })
+  public goal?: string;
+
+  @prop({ trim: true })
+  public description?: string;
+
+  @prop({ trim: true })
+  public useDonationsFor?: string;
+
+  @prop({ trim: true })
+  public email?: string;
+
+  @prop({ lowercase: true, trim: true })
+  public phone?: string;
+
+  @prop({ lowercase: true, trim: true })
+  public website?: string;
+
+  @prop({ trim: true })
+  public adminFullName?: string;
+
+  @prop({ lowercase: true, trim: true })
+  public adminEmail?: string;
+
+  // TODO: improve this code
+  @prop({ index: true, type: () => [String] })
+  public addresses?: string[];
+  @prop({ index: true, type: () => [String] })
+  public cities?: string[];
+  @prop({ index: true, type: () => [String] })
+  public states?: string[];
+  @prop({ index: true, type: () => [String] })
+  public countries?: string[];
+  @prop({ type: () => [Number] })
+  public coordenateX?: number[];
+  @prop({ type: () => [Number] })
+  public coordenateY?: number[];
+  // finish
+
+  @prop()
+  public facebookUrl?: string;
+
+  @prop()
+  public instagramUrl?: string;
+
+  @prop()
+  public twitterUrl?: string;
+
+  @prop()
+  public whatsappUrl?: string;
+
+  @prop({ type: () => [String] })
+  public donationLinks?: string[];
+
+  @prop()
+  public donationsProducts?: string;
+
+  @prop()
+  public donationBankAccountName?: string;
+
+  @prop()
+  public donationBankAccountType?: string;
+
+  @prop()
+  public donationBankAccountNumber?: string;
+}
+
+export const OrganizationModel = getModelForClass(Organization);

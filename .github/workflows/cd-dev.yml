@@ -8,15 +8,15 @@ on:
 jobs:
   continuous_deployment:
     name: Continuos deployment (Development)
-    runs-on: ubuntu-18.04
+    runs-on: 	ubuntu-latest
     environment: development
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup Node.js 12.13.x
+      - name: Setup Node.js 12.18.3
         uses: actions/setup-node@v1
         with:
-          node-version: '12.13.x'
+          node-version: '12.18.3'
       - name: Cache yarn directory
         id: cache-yarn-dir
         uses: actions/cache@v1
@@ -28,7 +28,7 @@ jobs:
         if: steps.cache-yarn-dir.outputs.cache-hit != 'true'
         run: yarn install --production --frozen-lockfile
       - name: Build
-        run: yarn run build
+        run: yarn build
       - name: Print Development Environment Variables
         run: printenv > .env
         env:
@@ -37,8 +37,8 @@ jobs:
           X_MONGO_DATABASE: ${{ secrets.X_MONGO_DATABASE }}
           JWT_TOKEN_SECRET: ${{ secrets.JWT_TOKEN_SECRET }}
           JWT_TOKEN_SECRET_REFRESH: ${{ secrets.JWT_TOKEN_SECRET_REFRESH }}
-      - name: Deploying Production Backend
-        uses: falnyr/aws-sam-deploy-action@v1.0.0
+      - name: Deploying Development Backend
+        uses: falnyr/aws-sam-deploy-action@v1.3.0
         env:
           TEMPLATE: 'template-dev.yaml'
           AWS_STACK_NAME: 'gentem-dev-backend'

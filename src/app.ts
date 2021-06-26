@@ -15,6 +15,7 @@ export function init() {
     cors({
       origin: [
         'http://localhost:3000',
+        'http://localhost:3001',
         'http://localhost:8080',
         'https://gentem.org',
         'https://www.gentem.org',

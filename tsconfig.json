@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    // "types": ["jest", "node"],
     "rootDir": "src",
     "outDir": "build",
     "target": "es2018",
