@@ -39,6 +39,9 @@ export const OrganizationResolver = {
         limit: number;
         causesId: string[];
         countries: string[];
+        donationLinks: boolean;
+        donationBank: boolean;
+        donationProducts: boolean;
       },
     ) => {
       try {
@@ -54,6 +57,18 @@ export const OrganizationResolver = {
         }
         if (options.countries) {
           filters = { ...filters, countries: { $in: options.countries } };
+        }
+
+        if (options.donationLinks) {
+          filters = { ...filters, donationLinks: { $exists: true, $ne: [''], $not: { $size: 0 } } };
+        }
+
+        if (options.donationBank) {
+          filters = { ...filters, donationBankAccountName: { $exists: true } };
+        }
+
+        if (options.donationProducts) {
+          filters = { ...filters, donationsProducts: { $exists: true } };
         }
 
         const count = await OrganizationModel.find(filters).countDocuments();

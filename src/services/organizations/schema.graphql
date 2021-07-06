@@ -1,6 +1,6 @@
 type Organization {
   id: ID
-  ownerId: String,
+  ownerId: String
   causesId: [String]
   causes: [Cause]
   slug: String
@@ -24,7 +24,7 @@ type Organization {
   instagramUrl: String
   twitterUrl: String
   whatsappUrl: String
-  donationLinks: [String],
+  donationLinks: [String]
   donationsProducts: String
   donationBankAccountName: String
   donationBankAccountType: String
@@ -32,7 +32,7 @@ type Organization {
   createdAt: String
   updatedAt: String
 }
-type OrganizationsPayload{
+type OrganizationsPayload {
   count: Float
   rows: [Organization]
 }
@@ -44,7 +44,9 @@ type Query {
     limit: Float
     causesId: [String]
     countries: [String]
+    donationLinks: Boolean
+    donationBank: Boolean
+    donationProducts: Boolean
   ): OrganizationsPayload
   organization(id: String, slug: String): Organization
 }
-
