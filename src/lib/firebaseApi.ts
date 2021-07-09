@@ -27,6 +27,12 @@ export class FirebaseApi {
     return await this.firebase.auth().verifyIdToken(options.token);
   }
 
+  async createUser(options: { email: string; password: string }) {
+    return await this.firebase
+      .auth()
+      .createUser({ email: options.email, password: options.password });
+  }
+
   async setCustomClaims(options: { auth_id: string; is_admin: boolean }) {
     return await this.firebase
       .auth()

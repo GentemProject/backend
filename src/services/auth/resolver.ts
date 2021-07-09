@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { logger } from '../../utils';
-import { UserResolver, UserModel } from '../users';
+import { UserModel } from '../users';
 
 export const AuthResolver = {
   Query: {},
@@ -36,7 +36,7 @@ export const AuthResolver = {
     ) => {
       try {
         logger.info('mutation register');
-        const newUser = await UserResolver.Mutation.createUser(null, { input: options.input });
+        const newUser = await UserModel.create(options.input);
         logger.info('mutation register finished');
         return newUser;
       } catch (error) {
