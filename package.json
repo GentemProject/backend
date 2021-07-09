@@ -23,8 +23,8 @@
     "test:watch": "jest --watchAll --verbose --maxWorkers=1"
   },
   "dependencies": {
-    "@graphql-tools/merge": "^6.2.14",
     "@graphql-tools/load-files": "^6.3.2",
+    "@graphql-tools/merge": "^6.2.14",
     "@typegoose/typegoose": "^7.4.8",
     "@types/aws-lambda": "^8.10.51",
     "@types/aws-serverless-express": "^3.3.3",
@@ -38,10 +38,12 @@
     "aws-lambda": "^1.0.6",
     "aws-sdk": "^2.656.0",
     "aws-serverless-express": "^3.3.8",
+    "bcryptjs": "^2.4.3",
     "copyfiles": "^2.4.1",
     "cors": "^2.8.5",
     "envalid": "^6.0.1",
     "express": "^4.17.1",
+    "firebase-admin": "^9.10.0",
     "global": "^4.4.0",
     "graphql": "^15.4.0",
     "mongoose": "5.10.18",
@@ -50,17 +52,20 @@
     "prettier": "^2.1.2",
     "reflect-metadata": "^0.1.13",
     "slugify": "^1.5.3",
-    "tsc-watch": "^4.2.3"
+    "tsc-watch": "^4.2.3",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
-    "typescript": "^4.3.2",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/validator": "^13.6.3",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "babel-jest": "^27.0.2",
-    "jest": "^27.0.4",
-    "ts-jest": "^27.0.3",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.14.0",
-    "eslint-plugin-prettier": "^3.1.4"
+    "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^27.0.4",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.2"
   }
 }

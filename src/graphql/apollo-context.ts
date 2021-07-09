@@ -1,10 +1,10 @@
 import { ExpressContext } from 'apollo-server-express/dist/ApolloServer';
 
 import { connectDatabase, getAuth } from '../middlewares';
+import { User } from '../services';
 
 export interface Context {
-  userId: string;
-  isAdmin: boolean;
+  user: User | null;
 }
 
 export const context = async (context: ExpressContext): Promise<Context> => {
