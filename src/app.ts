@@ -18,7 +18,9 @@ export function init() {
         'http://localhost:3001',
         'http://localhost:8080',
         'https://gentem.org',
-        'https://*.gentem.org',
+        'https://dashboard.gentem.org',
+        'https://dashboard-dev.gentem.org',
+        'https://www.gentem.org',
       ],
     }),
   );
