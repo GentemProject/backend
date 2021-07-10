@@ -1,0 +1,23 @@
+type User {
+  id: ID
+  firebaseId: String
+  name: String
+  email: String
+  createdAt: Date
+  updatedAt: Date
+  lastLoginAt: Date
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+type Query {
+  getMe: User
+}
+
+type Mutation {
+  createUser(input: CreateUserInput): User
+}

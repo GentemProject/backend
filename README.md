@@ -1,13 +1,22 @@
 # Gentem backend in GraphQL Express
+
 [![Continuos integration](https://github.com/GentemProject/backend/actions/workflows/ci.yml/badge.svg)](https://github.com/GentemProject/backend/actions/workflows/ci.yml)
 [![Continuos deployment (Development)](https://github.com/GentemProject/backend/actions/workflows/cd-dev.yml/badge.svg?branch=dev)](https://github.com/GentemProject/backend/actions/workflows/cd-dev.yml)
 [![Continuos deployment (Production)](https://github.com/GentemProject/backend/actions/workflows/cd-prod.yml/badge.svg?branch=master)](https://github.com/GentemProject/backend/actions/workflows/cd-prod.yml)
 
 Deployed in Amazon Web Services using lambda concept.
 
+## Graphql Playground Environments
+
+Production Playground(Inactive for obvius reasons): [https://api-prod.gentem.org/graphql](https://api-prod.gentem.org/graphql)<br />
+Development Playground: [https://api-dev.gentem.org/graphql](https://api-dev.gentem.org/graphql)
+
 ## Healthy Environments
+
 Production Enviroment: [https://api-prod.gentem.org/health](https://api-prod.gentem.org/health)<br />
 Development Enviroment: [https://api-dev.gentem.org/health](https://api-dev.gentem.org/health)
+
+## Tech used
 
 This project uses:<br />
 [Typescript](https://www.typescriptlang.org/): TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.<br />
