@@ -1,6 +1,7 @@
 type User {
   id: ID
   firebaseId: String
+  isAdmin: String
   name: String
   email: String
   createdAt: Date
@@ -14,8 +15,15 @@ input CreateUserInput {
   password: String!
 }
 
+type UsersPayload {
+  count: Float
+  rows: [User]
+}
+
 type Query {
   getMe: User
+  getUser(id: String, query: String): User
+  getUsers(query: String, page: Float, limit: Float): UsersPayload
 }
 
 type Mutation {

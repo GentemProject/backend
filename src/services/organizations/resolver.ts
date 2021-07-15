@@ -52,9 +52,10 @@ export const OrganizationResolver = {
         const sort = { createdAt: 1 };
 
         let filters = {};
-        if (options.causesId && options.causesId.length > 0 && options.causesId[0] !== '') {
-          filters = { ...filters, causesId: options.causesId };
+        if (options.causesId && options.causesId.length > 0) {
+          filters = { ...filters, causesId: { $in: options.causesId } };
         }
+
         if (options.countries && options.countries[0] !== '') {
           filters = { ...filters, countries: { $in: options.countries } };
         }
