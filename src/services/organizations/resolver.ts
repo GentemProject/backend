@@ -56,7 +56,7 @@ export const OrganizationResolver = {
           filters = { ...filters, causesId: { $in: options.causesId } };
         }
 
-        if (options.countries && options.causesId.length > 0) {
+        if (options.countries && options.countries.length > 0) {
           filters = { ...filters, countries: { $in: options.countries } };
         }
 
@@ -71,6 +71,8 @@ export const OrganizationResolver = {
         if (options.donationProducts) {
           filters = { ...filters, donationsProducts: { $exists: true } };
         }
+
+        console.log({ filters });
 
         const count = await OrganizationModel.find(filters).countDocuments();
         const rows = await OrganizationModel.find(filters)
