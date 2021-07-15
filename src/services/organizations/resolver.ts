@@ -56,7 +56,7 @@ export const OrganizationResolver = {
           filters = { ...filters, causesId: { $in: options.causesId } };
         }
 
-        if (options.countries && options.countries[0] !== '') {
+        if (options.countries && options.causesId.length > 0) {
           filters = { ...filters, countries: { $in: options.countries } };
         }
 
