@@ -49,14 +49,17 @@ export const OrganizationResolver = {
 
         const limit = options.limit || 10;
         const page = options.page || 1;
-        const sort = { createdAt: 1 };
+        const sort = { _id: '-1' };
 
         let filters = {};
         if (options.causesId && options.causesId.length > 0 && options.causesId[0] !== '') {
-          filters = { ...filters, causesId: { $in: options.causesId } };
+          filters = {
+            ...filters,
+            causesId: { $in: options.causesId },
+          };
         }
 
-        if (options.countries && options.countries.length > 0 && options.countries[0] !== '') {
+        if (options.countries && options.countries.length > 0 && options.causesId[0] !== '') {
           filters = { ...filters, countries: { $in: options.countries } };
         }
 
@@ -76,9 +79,10 @@ export const OrganizationResolver = {
 
         const count = await OrganizationModel.find(filters).countDocuments();
         const rows = await OrganizationModel.find(filters)
-          .skip((page - 1) * limit)
+          .skip(page * limit)
           .limit(limit)
           .sort(sort);
+
         return {
           count,
           rows,
