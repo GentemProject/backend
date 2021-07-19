@@ -11,7 +11,71 @@ export const UserResolver = {
       try {
         return context.user;
       } catch (error) {
-        throw new Error('Error getting user');
+        logger.error(`error getMe: "${error.message}"`);
+        throw new Error(error.message);
+      }
+    },
+    getUser: async (_root: any, options: { id?: string; query?: string }, context: Context) => {
+      try {
+        logger.info('query getUser');
+        if (!context.user?.isAdmin) {
+          throw new AuthenticationError('Only admin can get a user');
+        }
+
+        let filters = {};
+        if (options.id) {
+          filters = { ...filters, _id: options.id };
+        }
+        if (options.query) {
+          filters = {
+            ...filters,
+            $or: [{ email: { $regex: options.query } }, { name: { $regex: options.query } }],
+          };
+        }
+
+        const user = await UserModel.findOne(filters).exec();
+
+        return user;
+      } catch (error) {
+        logger.error(`error getUser: "${error.message}"`);
+        throw new Error(error.message);
+      }
+    },
+    getUsers: async (
+      _root: any,
+      options: { query?: string; page?: number; limit?: number },
+      context: Context,
+    ) => {
+      try {
+        logger.info('query getUsers');
+        if (!context.user?.isAdmin) {
+          throw new AuthenticationError('Only admins can get users');
+        }
+
+        const limit = options.limit || 10;
+        const page = options.page || 1;
+        const sort = { createdAt: 1 };
+        let filters = {};
+        if (options.query) {
+          filters = {
+            ...filters,
+            $or: [{ email: { $regex: options.query } }, { name: { $regex: options.query } }],
+          };
+        }
+
+        const count = await UserModel.find(filters).countDocuments();
+        const rows = await UserModel.find(filters)
+          .skip((page - 1) * limit)
+          .limit(limit)
+          .sort(sort);
+
+        return {
+          count,
+          rows,
+        };
+      } catch (error) {
+        logger.error(`error getUsers: "${error.message}"`);
+        throw new Error(error.message);
       }
     },
   },
@@ -40,7 +104,7 @@ export const UserResolver = {
       } catch (error) {
         logger.error(`error createUser: "${error.message}"`);
 
-        throw new Error('Error creating the user');
+        throw new Error(error.message);
       }
     },
   },
