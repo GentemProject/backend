@@ -59,7 +59,7 @@ export const OrganizationResolver = {
           };
         }
 
-        if (options.countries && options.countries.length > 0 && options.causesId[0] !== '') {
+        if (options.countries && options.countries.length > 0 && options.countries[0] !== '') {
           filters = { ...filters, countries: { $in: options.countries } };
         }
 
