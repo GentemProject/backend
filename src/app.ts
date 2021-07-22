@@ -21,6 +21,7 @@ export function init() {
         'https://dashboard.gentem.org',
         'https://dashboard-dev.gentem.org',
         'https://www.gentem.org',
+        'frontend-eta-seven.vercel.app',
       ],
     }),
   );
