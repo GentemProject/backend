@@ -46,8 +46,8 @@ export const OrganizationResolver = {
     ) => {
       try {
         logger.info('query getOrganizations');
-
-        const limit = options.limit || 10;
+        console.log(options.limit);
+        const limit = options.limit === 0 ? 0 : options.limit || 10;
         const page = options.page || 1;
         const sort = { _id: '-1' };
 
