@@ -1,4 +1,6 @@
+import { AuthenticationError } from 'apollo-server-express';
 import { Types } from 'mongoose';
+import { Context } from '../../graphql';
 
 import { logger } from '../../utils';
 
@@ -64,17 +66,13 @@ export const CausesResolver = {
     },
   },
   Mutation: {
-    createCause: async (
-      _root: any,
-      options: { input: { name: string } },
-      // context: Context,
-    ) => {
+    createCause: async (_root: any, options: { input: { name: string } }, context: Context) => {
       try {
         logger.info('mutation createCause');
 
-        // if (!context.isAdmin) {
-        //   throw new AuthenticationError('Only admins can create causes.');
-        // }
+        if (!context.user?.isAdmin) {
+          throw new AuthenticationError('Only admins can create causes.');
+        }
 
         const newCause = await CauseModel.create(options.input);
 
@@ -86,19 +84,15 @@ export const CausesResolver = {
         return null;
       }
     },
-    deleteCause: async (
-      _root: any,
-      options: { id?: string; slug?: string },
-      // context: Context,
-    ) => {
+    deleteCause: async (_root: any, options: { id?: string; slug?: string }, context: Context) => {
       try {
         logger.info('mutation deleteCause');
 
-        // if (!context.isAdmin) {
-        //   throw new AuthenticationError('Only admins can delete causes.');
-        // }
+        if (!context.user?.isAdmin) {
+          throw new AuthenticationError('Only admins can delete causes.');
+        }
 
-        const causeDeleted = await CauseModel.deleteOne(options);
+        const causeDeleted = await CauseModel.deleteOne({ _id: options.id });
 
         const itemsDeleted = causeDeleted.deletedCount || 0;
         const hasItemsDeleted = itemsDeleted > 0;
