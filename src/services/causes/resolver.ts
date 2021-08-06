@@ -89,14 +89,14 @@ export const CausesResolver = {
     updateCause: async (
       _root: any,
       options: { id: string; input: { name: string } },
-      // context: Context,
+      context: Context,
     ) => {
       try {
         logger.info('mutation updateCause');
 
-        // if (!context.user?.isAdmin) {
-        //   throw new AuthenticationError('Only admins can update causes.');
-        // }
+        if (!context.user?.isAdmin) {
+          throw new AuthenticationError('Only admins can update causes.');
+        }
 
         await CauseModel.updateOne(
           { _id: options.id },
