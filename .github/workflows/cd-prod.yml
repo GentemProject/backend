@@ -35,8 +35,10 @@ jobs:
           NODE_ENV: production
           X_MONGO_URL: ${{ secrets.X_MONGO_URL }}
           X_MONGO_DATABASE: ${{ secrets.X_MONGO_DATABASE }}
-          JWT_TOKEN_SECRET: ${{ secrets.JWT_TOKEN_SECRET }}
-          JWT_TOKEN_SECRET_REFRESH: ${{ secrets.JWT_TOKEN_SECRET_REFRESH }}
+          X_FIREBASE_DB_URL: ${{ secrets.X_FIREBASE_DB_URL }}
+          X_FIREBASE_PROJECT_ID: ${{ secrets.X_FIREBASE_PROJECT_ID }}
+          X_FIREBASE_CLIENT_EMAIL: ${{ secrets.X_FIREBASE_CLIENT_EMAIL }}
+          X_FIREBASE_PRIVATE_KEY: ${{ secrets.X_FIREBASE_PRIVATE_KEY }}
       - name: Deploying Production Backend
         uses: falnyr/aws-sam-deploy-action@v1.3.0
         env:

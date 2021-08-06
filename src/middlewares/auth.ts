@@ -1,21 +1,37 @@
 import { ExpressContext } from 'apollo-server-express/dist/ApolloServer';
+import { FirebaseApi } from '../lib/firebaseApi';
 
+import { env } from '../config';
 import { logger } from '../utils';
+import { UserModel } from '../services';
+
+export const firebaseAdmin = new FirebaseApi({
+  databaseUrl: env.X_FIREBASE_DB_URL,
+  projectId: env.X_FIREBASE_PROJECT_ID,
+  clientEmail: env.X_FIREBASE_CLIENT_EMAIL,
+  privateKey: JSON.parse(`"${env.X_FIREBASE_PRIVATE_KEY}"`),
+});
 
 export async function getAuth({ req }: ExpressContext) {
   try {
     const authorization = req.headers['authorization'];
     if (!authorization) {
-      throw new Error('No authorization in request.');
+      return { user: null };
     }
 
-    const accessToken = authorization.split(' ')[1];
+    const token = authorization.split(' ')[1];
+    const decodedToken = await firebaseAdmin.verifyIdToken({
+      token,
+    });
 
-    console.log({ accessToken });
+    const user = await UserModel.findOne({ firebaseId: decodedToken.uid });
+    if (!user) {
+      return { user: null };
+    }
 
-    return { userId: '234423', isAdmin: false };
+    return { user };
   } catch (error) {
     logger.child({ error: error.message }).warn('middleware getAuth token error');
-    return { userId: '234423', isAdmin: false };
+    return { user: null };
   }
 }

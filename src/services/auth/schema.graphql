@@ -1,0 +1,15 @@
+input RegisterInput {
+  firebaseId: String!
+  name: String!
+  email: String!
+  password: String!
+}
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  login(input: LoginInput): User
+  register(input: RegisterInput): User
+}

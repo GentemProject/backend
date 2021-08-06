@@ -11,10 +11,11 @@ input CauseInput {
 
 type Query {
   cause(id: String, slug: String): Cause
-  causes(ids: [String], query: String): [Cause]
+  causes(ids: [String], query: String, orderBy: String, sortBy: String): [Cause]
 }
 
 type Mutation {
   createCause(input: CauseInput): Cause
+  updateCause(id: String!, input: CauseInput): Cause
   deleteCause(id: String!): Boolean
 }

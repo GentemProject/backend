@@ -18,8 +18,10 @@ export function init() {
         'http://localhost:3001',
         'http://localhost:8080',
         'https://gentem.org',
+        'https://dashboard.gentem.org',
+        'https://dashboard-dev.gentem.org',
         'https://www.gentem.org',
-        'https://app.gentem.org',
+        'https://frontend-eta-seven.vercel.app',
       ],
     }),
   );
@@ -35,7 +37,7 @@ export function init() {
 if (require.main === module) {
   init().listen(env.PORT, () => {
     console.log(`🌎 Environment:`, env.NODE_ENV);
-    console.log(`🚀 Graphql server is running on http://localhost:3000/graphql`);
+    console.log(`🚀 Graphql server is running on http://localhost:3200/graphql`);
   });
 } else {
   // required as a module => executed on aws lambda

@@ -39,26 +39,47 @@ export const OrganizationResolver = {
         limit: number;
         causesId: string[];
         countries: string[];
+        donationLinks: boolean;
+        donationBank: boolean;
+        donationProducts: boolean;
       },
     ) => {
       try {
         logger.info('query getOrganizations');
-
-        const limit = options.limit || 10;
+        console.log(options.limit);
+        const limit = options.limit === 0 ? 0 : options.limit || 10;
         const page = options.page || 1;
-        const sort = { createdAt: 1 };
+        const sort = { _id: '-1' };
 
         let filters = {};
-        if (options.causesId && options.causesId.length > 0) {
-          filters = { ...filters, causesId: options.causesId };
+        if (options.causesId && options.causesId.length > 0 && options.causesId[0] !== '') {
+          filters = {
+            ...filters,
+            causesId: { $in: options.causesId },
+          };
         }
-        if (options.countries) {
+
+        if (options.countries && options.countries.length > 0 && options.countries[0] !== '') {
           filters = { ...filters, countries: { $in: options.countries } };
         }
 
+        if (options.donationLinks) {
+          filters = { ...filters, donationLinks: { $exists: true, $ne: [''], $not: { $size: 0 } } };
+        }
+
+        if (options.donationBank) {
+          filters = { ...filters, donationBankAccountName: { $exists: true } };
+        }
+
+        if (options.donationProducts) {
+          filters = { ...filters, donationsProducts: { $exists: true } };
+        }
+
+        console.log({ filters });
+
         const count = await OrganizationModel.find(filters).countDocuments();
         const rows = await OrganizationModel.find(filters)
-          .skip((page - 1) * limit)
+          .skip(page * limit)
           .limit(limit)
           .sort(sort);
 
