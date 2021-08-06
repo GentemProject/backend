@@ -28,7 +28,15 @@ export const CausesResolver = {
         return null;
       }
     },
-    causes: async (_root: any, options: { query?: string; ids?: string[] | Types.ObjectId[] }) => {
+    causes: async (
+      _root: any,
+      options: {
+        query?: string;
+        orderBy?: string;
+        sortBy?: string;
+        ids?: string[] | Types.ObjectId[];
+      },
+    ) => {
       try {
         logger.info('query getCauses');
 
@@ -40,7 +48,11 @@ export const CausesResolver = {
           find = { ...find, name: { $regex: options.query, $options: 'i' } };
         }
 
-        const results = await CauseModel.find(find);
+        const orderBy = options.orderBy || 'createdAt';
+        const sortBy = options.sortBy || 'asc';
+        const sort = { [orderBy]: sortBy };
+
+        const results = await CauseModel.find(find).sort(sort);
 
         logger.info('query getCauses finished');
         return results;

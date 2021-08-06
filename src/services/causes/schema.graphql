@@ -11,7 +11,7 @@ input CauseInput {
 
 type Query {
   cause(id: String, slug: String): Cause
-  causes(ids: [String], query: String): [Cause]
+  causes(ids: [String], query: String, orderBy: String, sortBy: String): [Cause]
 }
 
 type Mutation {
