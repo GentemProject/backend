@@ -16,5 +16,6 @@ type Query {
 
 type Mutation {
   createCause(input: CauseInput): Cause
+  updateCause(id: String!, input: CauseInput): Cause
   deleteCause(id: String!): Boolean
 }

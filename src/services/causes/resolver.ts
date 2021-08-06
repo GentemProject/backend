@@ -2,7 +2,7 @@ import { AuthenticationError } from 'apollo-server-express';
 import { Types } from 'mongoose';
 import { Context } from '../../graphql';
 
-import { logger } from '../../utils';
+import { capitalizeFirstLetter, logger, slugify } from '../../utils';
 
 import { CauseModel } from './model';
 
@@ -74,7 +74,9 @@ export const CausesResolver = {
           throw new AuthenticationError('Only admins can create causes.');
         }
 
-        const newCause = await CauseModel.create(options.input);
+        const newCause = await CauseModel.create({
+          name: capitalizeFirstLetter(options.input.name),
+        });
 
         logger.info('mutation createCause finished');
         return newCause;
@@ -82,6 +84,37 @@ export const CausesResolver = {
         logger.error(`error createCauses: "${error.message}"`);
 
         return null;
+      }
+    },
+    updateCause: async (
+      _root: any,
+      options: { id: string; input: { name: string } },
+      // context: Context,
+    ) => {
+      try {
+        logger.info('mutation updateCause');
+
+        // if (!context.user?.isAdmin) {
+        //   throw new AuthenticationError('Only admins can update causes.');
+        // }
+
+        await CauseModel.updateOne(
+          { _id: options.id },
+          {
+            $set: {
+              name: capitalizeFirstLetter(options.input.name),
+              slug: slugify(options.input.name),
+            },
+          },
+        );
+        const newCause = await CauseModel.findOne({ _id: options.id });
+
+        logger.info('mutation updateCause finished');
+        return newCause;
+      } catch (error) {
+        logger.error(`error updateCause: "${error.message}"`);
+
+        throw new Error(error.message);
       }
     },
     deleteCause: async (_root: any, options: { id?: string; slug?: string }, context: Context) => {

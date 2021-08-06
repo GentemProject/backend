@@ -3,13 +3,10 @@ import { getModelForClass, ModelOptions, pre, prop } from '@typegoose/typegoose'
 import { slugify } from '../../utils';
 
 @pre<Cause>('save', function (next) {
+  console.log('RUNS SAVE');
   if (!this.isModified('name')) return next();
-  try {
-    this.slug = slugify(this.name);
-    return next();
-  } catch (error) {
-    return next(error);
-  }
+  this.slug = slugify(this.name);
+  return next();
 })
 @ModelOptions({ schemaOptions: { timestamps: true } })
 export class Cause {
