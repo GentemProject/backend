@@ -83,7 +83,7 @@ export const CausesResolver = {
       } catch (error) {
         logger.error(`error createCauses: "${error.message}"`);
 
-        return null;
+        throw new Error(error.message);
       }
     },
     updateCause: async (
@@ -128,14 +128,17 @@ export const CausesResolver = {
         const causeDeleted = await CauseModel.deleteOne({ _id: options.id });
 
         const itemsDeleted = causeDeleted.deletedCount || 0;
-        const hasItemsDeleted = itemsDeleted > 0;
 
-        logger.info('mutation deleteCause finished');
-        return hasItemsDeleted;
+        if (itemsDeleted > 0) {
+          logger.info('mutation deleteCause finished');
+          return true;
+        } else {
+          throw new Error('Cause not deleted.');
+        }
       } catch (error) {
-        logger.error(`error deleteCauses: "${error.message}"`);
+        logger.error(`e rror deleteCauses: "${error.message}"`);
 
-        return false;
+        throw new Error(error.message);
       }
     },
   },
