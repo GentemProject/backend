@@ -22,7 +22,7 @@ export function init() {
         'https://dashboard-dev.gentem.org',
         'https://www.gentem.org',
         'https://frontend-eta-seven.vercel.app',
-	'https://gentem-develop.vercel.app',
+        'https://gentem-develop.vercel.app',
       ],
     }),
   );
