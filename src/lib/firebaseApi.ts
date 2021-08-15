@@ -27,16 +27,12 @@ export class FirebaseApi {
     return await this.firebase.auth().verifyIdToken(options.token);
   }
 
-  async createUser(options: { email: string; password: string }) {
-    return await this.firebase
-      .auth()
-      .createUser({ email: options.email, password: options.password });
+  createUser(options: { email: string; password: string }) {
+    return this.firebase.auth().createUser({ email: options.email, password: options.password });
   }
 
-  async setCustomClaims(options: { auth_id: string; is_admin: boolean }) {
-    return await this.firebase
-      .auth()
-      .setCustomUserClaims(options.auth_id, { is_admin: options.is_admin });
+  deleteUser(options: { firebaseId: string }) {
+    return this.firebase.auth().deleteUser(options.firebaseId);
   }
 
   async updateUserFirebasePassword(options: { auth_id: string; new_password: string }) {

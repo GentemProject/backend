@@ -14,6 +14,9 @@ input CreateUserInput {
   email: String!
   password: String!
 }
+input DeleteUserInput {
+  id: String!
+}
 
 type UsersPayload {
   count: Float
@@ -23,9 +26,10 @@ type UsersPayload {
 type Query {
   getMe: User
   getUser(id: String, query: String): User
-  getUsers(query: String, page: Float, limit: Float): UsersPayload
+  users(query: String, page: Float, limit: Float, orderBy: String, sortBy: String): UsersPayload
 }
 
 type Mutation {
   createUser(input: CreateUserInput): User
+  deleteUser(input: DeleteUserInput): Boolean
 }

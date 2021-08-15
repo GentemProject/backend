@@ -41,9 +41,9 @@ export const UserResolver = {
         throw new Error(error.message);
       }
     },
-    getUsers: async (
+    users: async (
       _root: any,
-      options: { query?: string; page?: number; limit?: number },
+      options: { query?: string; page?: number; limit?: number; orderBy?: string; sortBy?: string },
       context: Context,
     ) => {
       try {
@@ -54,16 +54,21 @@ export const UserResolver = {
 
         const limit = options.limit || 10;
         const page = options.page || 1;
-        const sort = { createdAt: 1 };
+        const orderBy = options.orderBy || 'createdAt';
+        const sortBy = options.sortBy || 'asc';
+        const sort = { [orderBy]: sortBy };
         let filters = {};
         if (options.query) {
           filters = {
             ...filters,
-            $or: [{ email: { $regex: options.query } }, { name: { $regex: options.query } }],
+            $or: [
+              { email: { $regex: options.query, $options: 'i' } },
+              { name: { $regex: options.query, $options: 'i' } },
+            ],
           };
         }
 
-        const count = await UserModel.find(filters).countDocuments();
+        const count = await UserModel.find(filters).sort(sort).countDocuments();
         const rows = await UserModel.find(filters)
           .skip((page - 1) * limit)
           .limit(limit)
@@ -103,6 +108,28 @@ export const UserResolver = {
         return newUser;
       } catch (error) {
         logger.error(`error createUser: "${error.message}"`);
+
+        throw new Error(error.message);
+      }
+    },
+    deleteUser: async (_root: any, options: { input: { id: string } }, context: Context) => {
+      try {
+        logger.info('mutation createUser');
+        if (!context.user?.isAdmin) {
+          throw new AuthenticationError('Only admin can create user');
+        }
+
+        const user = await UserModel.findOne({ _id: options.input.id });
+
+        if (user) {
+          await UserModel.findOneAndRemove({ _id: user._id });
+          await firebaseAdmin.deleteUser({
+            firebaseId: user.firebaseId,
+          });
+        }
+        return true;
+      } catch (error) {
+        logger.error(`error deleteUser: "${error.message}"`);
 
         throw new Error(error.message);
       }
