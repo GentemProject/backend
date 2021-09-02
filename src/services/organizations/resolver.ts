@@ -37,6 +37,8 @@ export const OrganizationResolver = {
         query: string;
         page: number;
         limit: number;
+        orderBy: string;
+        sortBy: string;
         causesId: string[];
         countries: string[];
         donationLinks: boolean;
@@ -46,21 +48,28 @@ export const OrganizationResolver = {
     ) => {
       try {
         logger.info('query getOrganizations');
-        console.log(options.limit);
-        const limit = options.limit === 0 ? 0 : options.limit || 10;
+        const limit = options.limit || 10;
         const page = options.page || 1;
-        const sort = { _id: '-1' };
+        const orderBy = options.orderBy || 'createdAt';
+        const sortBy = options.sortBy || 'asc';
+        const sort = { [orderBy]: sortBy };
 
         let filters = {};
-        if (options.causesId && options.causesId.length > 0 && options.causesId[0] !== '') {
+        if (options.causesId && options.causesId.length > 0) {
+          const cleanedCausesId = options.causesId.filter(causeId => {
+            return causeId !== null || causeId !== '';
+          });
           filters = {
             ...filters,
-            causesId: { $in: options.causesId },
+            causesId: { $all: cleanedCausesId },
           };
         }
 
-        if (options.countries && options.countries.length > 0 && options.countries[0] !== '') {
-          filters = { ...filters, countries: { $in: options.countries } };
+        if (options.countries && options.countries.length > 0) {
+          const cleanedCountries = options.countries.filter(country => {
+            return country !== null || country !== '';
+          });
+          filters = { ...filters, countries: { $all: cleanedCountries } };
         }
 
         if (options.donationLinks) {
@@ -79,9 +88,9 @@ export const OrganizationResolver = {
 
         const count = await OrganizationModel.find(filters).countDocuments();
         const rows = await OrganizationModel.find(filters)
-          .skip(page * limit)
-          .limit(limit)
-          .sort(sort);
+          .skip(page > 0 ? (page - 1) * limit : 0)
+          .sort(sort)
+          .limit(limit);
 
         return {
           count,

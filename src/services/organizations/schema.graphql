@@ -29,8 +29,8 @@ type Organization {
   donationBankAccountName: String
   donationBankAccountType: String
   donationBankAccountNumber: String
-  createdAt: String
-  updatedAt: String
+  createdAt: Date
+  updatedAt: Date
 }
 type OrganizationsPayload {
   count: Float
@@ -42,6 +42,8 @@ type Query {
     query: String
     page: Float
     limit: Float
+    orderBy: String
+    sortBy: String
     causesId: [String]
     countries: [String]
     donationLinks: Boolean
