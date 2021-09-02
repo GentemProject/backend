@@ -29,6 +29,9 @@ type Organization {
   donationBankAccountName: String
   donationBankAccountType: String
   donationBankAccountNumber: String
+  hasDonationLinks: Boolean
+  hasDonationBank: Boolean
+  hasDonationProducts: Boolean
   createdAt: Date
   updatedAt: Date
 }
@@ -46,9 +49,9 @@ type Query {
     sortBy: String
     causesId: [String]
     countries: [String]
-    donationLinks: Boolean
-    donationBank: Boolean
-    donationProducts: Boolean
+    hasDonationLinks: Boolean
+    hasDonationBank: Boolean
+    hasDonationProducts: Boolean
   ): OrganizationsPayload
   organization(id: String, slug: String): Organization
 }

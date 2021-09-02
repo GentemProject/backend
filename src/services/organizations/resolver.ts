@@ -41,9 +41,9 @@ export const OrganizationResolver = {
         sortBy: string;
         causesId: string[];
         countries: string[];
-        donationLinks: boolean;
-        donationBank: boolean;
-        donationProducts: boolean;
+        hasDonationLinks: boolean;
+        hasDonationBank: boolean;
+        hasDonationProducts: boolean;
       },
     ) => {
       try {
@@ -72,19 +72,17 @@ export const OrganizationResolver = {
           filters = { ...filters, countries: { $all: cleanedCountries } };
         }
 
-        if (options.donationLinks) {
+        if (options.hasDonationLinks) {
           filters = { ...filters, donationLinks: { $exists: true, $ne: [''], $not: { $size: 0 } } };
         }
 
-        if (options.donationBank) {
+        if (options.hasDonationBank) {
           filters = { ...filters, donationBankAccountName: { $exists: true } };
         }
 
-        if (options.donationProducts) {
+        if (options.hasDonationProducts) {
           filters = { ...filters, donationsProducts: { $exists: true } };
         }
-
-        console.log({ filters });
 
         const count = await OrganizationModel.find(filters).countDocuments();
         const rows = await OrganizationModel.find(filters)
@@ -92,10 +90,12 @@ export const OrganizationResolver = {
           .sort(sort)
           .limit(limit);
 
-        return {
+        const result = {
           count,
           rows,
         };
+        console.log(result);
+        return result;
       } catch (error) {
         logger.error(`error getOrganizations: "${error.message}"`);
 
