@@ -1,11 +1,12 @@
 type Organization {
   id: ID
-  ownerId: String
+  ownersId: String
   causesId: [String]
   causes: [Cause]
+  isPublished: Boolean
+  name: String
   slug: String
   logo: String
-  name: String
   goal: String
   description: String
   useDonationsFor: String
@@ -14,32 +15,41 @@ type Organization {
   website: String
   adminFullName: String
   adminEmail: String
-  addresses: [String]
-  cities: [String]
-  states: [String]
-  countries: [String]
-  coordenateX: [Float]
-  coordenateY: [Float]
-  facebookUrl: String
-  instagramUrl: String
-  twitterUrl: String
-  whatsappUrl: String
-  donationLinks: [String]
-  donationsProducts: String
-  donationBankAccountName: String
-  donationBankAccountType: String
-  donationBankAccountNumber: String
-  hasDonationLinks: Boolean
-  hasDonationBank: Boolean
-  hasDonationProducts: Boolean
+  locations: [Location]
+  socialMedia: [SocialMedia]
+  donations: [Donations]
+  sponsors: [Sponsors]
   createdAt: Date
   updatedAt: Date
 }
+type Location {
+  address: String
+  city: String
+  state: String
+  country: String
+  coordenateX: Float
+  coordenateY: Float
+}
+type SocialMedia {
+  key: String
+  name: String
+  url: String
+}
+type Donations {
+  key: String
+  title: String
+  description: String
+}
+type Sponsors {
+  name: String
+  imrg: String
+  link: String
+}
+
 type OrganizationsPayload {
   count: Float
   rows: [Organization]
 }
-
 type Query {
   organizations(
     query: String
@@ -49,9 +59,9 @@ type Query {
     sortBy: String
     causesId: [String]
     countries: [String]
-    hasDonationLinks: Boolean
     hasDonationBank: Boolean
     hasDonationProducts: Boolean
+    hasDonationLinks: Boolean
   ): OrganizationsPayload
   organization(id: String, slug: String): Organization
 }
