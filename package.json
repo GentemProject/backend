@@ -19,6 +19,7 @@
     "migrate:causes": "ts-node src/scripts/migrateCauses.ts",
     "migrate:orgs": "ts-node src/scripts/migrateOrgs.ts",
     "migrate:all": "ts-node src/scripts/migrateCauses.ts && ts-node src/scripts/migrateOrgs.ts",
+    "copyOandC:all": "ts-node src/scripts/migrateOrgsSeptember2021.ts",
     "test": "jest --verbose --maxWorkers=1 --forceExit",
     "test:watch": "jest --watchAll --verbose --maxWorkers=1"
   },

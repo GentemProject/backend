@@ -27,6 +27,7 @@ type Location {
   city: String
   state: String
   country: String
+  countryCode: String
   coordenateX: Float
   coordenateY: Float
 }

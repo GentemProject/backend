@@ -64,6 +64,7 @@ export class Organization {
     city: string;
     state: string;
     country: string;
+    countryCode: string;
     coordenateX: number;
     coordenateY: number;
   }[];

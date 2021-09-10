@@ -48,6 +48,7 @@ export const OrganizationResolver = {
     ) => {
       try {
         logger.info('query getOrganizations');
+
         const limit = options.limit || 10;
         const page = options.page || 1;
         const orderBy = options.orderBy || 'createdAt';
@@ -69,19 +70,19 @@ export const OrganizationResolver = {
           const cleanedCountries = options.countries.filter(country => {
             return country !== null || country !== '';
           });
-          filters = { ...filters, countries: { $all: cleanedCountries } };
-        }
-
-        if (options.hasDonationLinks) {
-          filters = { ...filters, donationLinks: { $exists: true, $ne: [''], $not: { $size: 0 } } };
+          filters = { ...filters, 'locations.countryCode': { $all: cleanedCountries } };
         }
 
         if (options.hasDonationBank) {
-          filters = { ...filters, donationBankAccountName: { $exists: true } };
+          filters = { ...filters, 'donations.key': 'donationsBank' };
+        }
+
+        if (options.hasDonationLinks) {
+          filters = { ...filters, 'donations.key': 'donationsLinks' };
         }
 
         if (options.hasDonationProducts) {
-          filters = { ...filters, donationsProducts: { $exists: true } };
+          filters = { ...filters, 'donations.key': 'donationsProducts' };
         }
 
         const count = await OrganizationModel.find(filters).countDocuments();
@@ -94,7 +95,6 @@ export const OrganizationResolver = {
           count,
           rows,
         };
-        console.log(result);
         return result;
       } catch (error) {
         logger.error(`error getOrganizations: "${error.message}"`);
