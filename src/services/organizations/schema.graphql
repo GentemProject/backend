@@ -1,6 +1,6 @@
 type Organization {
   id: ID
-  ownersId: String
+  ownersId: [String]
   causesId: [String]
   causes: [Cause]
   isPublished: Boolean
@@ -43,7 +43,7 @@ type Donations {
 }
 type Sponsors {
   name: String
-  imrg: String
+  img: String
   link: String
 }
 
@@ -65,4 +65,54 @@ type Query {
     hasDonationLinks: Boolean
   ): OrganizationsPayload
   organization(id: String, slug: String): Organization
+}
+
+
+input OrganizationInput {
+  ownersId: [String]
+  causesId: [String]
+  isPublished: Boolean
+  name: String
+  logo: String
+  goal: String
+  description: String
+  useDonationsFor: String
+  email: String
+  phone: String
+  website: String
+  adminFullName: String
+  adminEmail: String
+  locations: [LocationInput]
+  socialMedia: [SocialMediaInput]
+  donations: [DonationsInput]
+  sponsors: [SponsorsInput]
+}
+input LocationInput {
+  address: String
+  city: String
+  state: String
+  country: String
+  countryCode: String
+  coordenateX: Float
+  coordenateY: Float
+}
+input SocialMediaInput {
+  key: String
+  name: String
+  url: String
+}
+input DonationsInput {
+  key: String
+  title: String
+  description: String
+}
+input SponsorsInput {
+  name: String
+  img: String
+  link: String
+}
+
+type Mutation {
+  createOrganization(input: OrganizationInput): Organization
+  updateOrganization(id: String!, input: OrganizationInput): Organization
 }

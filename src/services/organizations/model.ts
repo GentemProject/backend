@@ -25,7 +25,7 @@ export class Organization {
   @prop({ index: true, default: true })
   public isPublished?: boolean;
 
-  @prop({ index: true, required: true, lowercase: true, trim: true })
+  @prop({ index: true, required: true, trim: true })
   public name: string;
 
   @prop({ index: true, unique: true })

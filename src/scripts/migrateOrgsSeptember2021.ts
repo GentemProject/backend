@@ -1,4 +1,4 @@
-// import fs from 'fs';
+import fs from 'fs';
 
 import mongoose from 'mongoose';
 import organizationsData from './organizationsSeptember2021.json';
@@ -7,6 +7,7 @@ import causesData from './causesSeptember2021.json';
 import { connectDatabase } from '../middlewares';
 import { Organization, OrganizationModel, CauseModel } from '../services';
 import { countries } from '../services/countries';
+import { capitalizeFirstLetter } from '../utils';
 
 async function main() {
   try {
@@ -40,7 +41,7 @@ async function main() {
           url: organization.twitterUrl || 'null',
         },
         {
-          key: 'whataspp',
+          key: 'whatsapp',
           name: 'Whatsapp',
           url: organization.whatsappUrl || 'null',
         },
@@ -74,12 +75,16 @@ async function main() {
         ownersId: [],
         causesId: organization.causesId.map(cause => mongoose.Types.ObjectId(cause)),
         isPublished: true,
-        name: organization.name,
+        name: capitalizeFirstLetter(organization.name),
         slug: organization.slug,
         logo: organization.logo,
-        goal: organization.goal,
-        description: organization.description,
-        useDonationsFor: organization.useDonationsFor,
+        goal: capitalizeFirstLetter(organization.goal),
+        description: organization.description
+          ? capitalizeFirstLetter(organization.description)
+          : '',
+        useDonationsFor: organization.useDonationsFor
+          ? capitalizeFirstLetter(organization.useDonationsFor)
+          : '',
         email: organization.email,
         phone: organization.phone,
         website: organization.website,
@@ -104,10 +109,10 @@ async function main() {
 
     console.log('Inserting in database....');
 
-    // fs.writeFileSync(
-    //   `${__dirname}/testSept2021.json`,
-    //   JSON.stringify(organizationsToInsert, null, 2),
-    // );
+    fs.writeFileSync(
+      `${__dirname}/testSept2021.json`,
+      JSON.stringify(organizationsToInsert, null, 2),
+    );
     await OrganizationModel.create(organizationsToInsert);
     await CauseModel.create(causes);
 

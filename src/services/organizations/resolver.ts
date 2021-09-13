@@ -1,4 +1,5 @@
-import { logger } from '../../utils';
+import { mongoose } from '@typegoose/typegoose';
+import { capitalizeFirstLetter, logger, slugify } from '../../utils';
 import { CausesResolver } from '../causes';
 
 import { Organization, OrganizationModel } from './model';
@@ -106,7 +107,153 @@ export const OrganizationResolver = {
       }
     },
   },
-  Mutation: {},
+  Mutation: {
+    createOrganization: async (
+      _root: any,
+      options: {
+        id: string;
+        input: {
+          ownersId: mongoose.Types.ObjectId[];
+          causesId: mongoose.Types.ObjectId[];
+          isPublished: boolean;
+          name: string;
+          logo: string;
+          goal: string;
+          description: string;
+          useDonationsFor: string;
+          email: string;
+          phone: string;
+          website: string;
+          adminFullName: string;
+          adminEmail: string;
+          locations: {
+            address: string;
+            city: string;
+            state: string;
+            country: string;
+            countryCode: string;
+            coordenateX: number;
+            coordenateY: number;
+          }[];
+          socialMedia: {
+            key: string;
+            name: string;
+            url: string;
+          }[];
+          donations: {
+            key: string;
+            title: string;
+            description: string;
+          }[];
+          sponsors: {
+            name: string;
+            img: string;
+            link: string;
+          }[];
+        };
+      },
+      // context: Context,
+    ) => {
+      try {
+        logger.info('mutation createOrganization');
+
+        const newOrganization = await OrganizationModel.create(options.input);
+
+        logger.info('mutation createOrganization finished');
+        return newOrganization;
+      } catch (error) {
+        logger.error(`error createOrganization: "${error.message}"`);
+
+        throw new Error(error.message);
+      }
+    },
+    updateOrganization: async (
+      _root: any,
+      options: {
+        id: string;
+        input: {
+          ownersId: mongoose.Types.ObjectId[];
+          causesId: mongoose.Types.ObjectId[];
+          isPublished: boolean;
+          name: string;
+          logo: string;
+          goal: string;
+          description: string;
+          useDonationsFor: string;
+          email: string;
+          phone: string;
+          website: string;
+          adminFullName: string;
+          adminEmail: string;
+          locations: {
+            address: string;
+            city: string;
+            state: string;
+            country: string;
+            countryCode: string;
+            coordenateX: number;
+            coordenateY: number;
+          }[];
+          socialMedia: {
+            key: string;
+            name: string;
+            url: string;
+          }[];
+          donations: {
+            key: string;
+            title: string;
+            description: string;
+          }[];
+          sponsors: {
+            name: string;
+            img: string;
+            link: string;
+          }[];
+        };
+      },
+      // context: Context,
+    ) => {
+      try {
+        logger.info('query updateOrganization');
+
+        let dataToUpdate = {};
+        if (options.input?.name) {
+          dataToUpdate = {
+            ...dataToUpdate,
+            name: capitalizeFirstLetter(options.input.name),
+            slug: slugify(options.input.name),
+          };
+        }
+        if (options.input.ownersId?.length > 0) {
+          dataToUpdate = {
+            ...dataToUpdate,
+            ownersId: options.input.ownersId.map(owner =>
+              mongoose.Types.ObjectId(owner.toString()),
+            ),
+          };
+        }
+        if (options.input.causesId?.length > 0) {
+          dataToUpdate = {
+            ...dataToUpdate,
+            causesId: options.input.causesId.map(cause =>
+              mongoose.Types.ObjectId(cause.toString()),
+            ),
+          };
+        }
+
+        const dataMixed = { ...options.input, ...dataToUpdate };
+
+        await OrganizationModel.updateOne({ _id: options.id }, { $set: dataMixed });
+        const newOrganization = await OrganizationModel.findOne({ _id: options.id });
+
+        return newOrganization;
+      } catch (error) {
+        logger.error(`error updateOrganization: "${error.message}"`);
+
+        return null;
+      }
+    },
+  },
   Organization: {
     causes: async (organization: Organization) => {
       const causes = CausesResolver.Query.causes(null, {
