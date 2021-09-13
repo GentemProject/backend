@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
-import { getModelForClass, ModelOptions, pre, prop } from '@typegoose/typegoose';
+import { getModelForClass, ModelOptions, pre, prop, Severity } from '@typegoose/typegoose';
 
 import { slugify } from '../../utils';
+import { User } from '../users';
+import { Cause } from '../causes';
 
 @pre<Organization>('save', function (next) {
   if (!this.isModified('name')) return next();
@@ -12,13 +14,19 @@ import { slugify } from '../../utils';
     return next(error);
   }
 })
-@ModelOptions({ schemaOptions: { timestamps: true } })
+@ModelOptions({ schemaOptions: { timestamps: true }, options: { allowMixed: Severity.ALLOW } })
 export class Organization {
-  @prop({ index: true })
-  public ownerId?: mongoose.Types.ObjectId;
+  @prop({ index: true, default: [], type: () => [mongoose.Types.ObjectId], ref: () => User })
+  public ownersId: mongoose.Types.ObjectId[];
 
-  @prop({ index: true, required: true, type: () => [mongoose.Types.ObjectId] })
+  @prop({ index: true, default: [], type: () => [mongoose.Types.ObjectId], ref: () => Cause })
   public causesId: mongoose.Types.ObjectId[];
+
+  @prop({ index: true, default: true })
+  public isPublished?: boolean;
+
+  @prop({ index: true, required: true, trim: true })
+  public name: string;
 
   @prop({ index: true, unique: true })
   public slug?: string;
@@ -26,11 +34,8 @@ export class Organization {
   @prop({ trim: true, lowercase: true, default: 'https://gentem.s3.amazonaws.com/default.jpg' })
   public logo?: string;
 
-  @prop({ index: true, required: true, lowercase: true, trim: true })
-  public name: string;
-
-  @prop({ trim: true })
-  public goal?: string;
+  @prop({ trim: true, required: true })
+  public goal: string;
 
   @prop({ trim: true })
   public description?: string;
@@ -38,7 +43,7 @@ export class Organization {
   @prop({ trim: true })
   public useDonationsFor?: string;
 
-  @prop({ trim: true })
+  @prop({ lowercase: true, trim: true })
   public email?: string;
 
   @prop({ lowercase: true, trim: true })
@@ -53,47 +58,37 @@ export class Organization {
   @prop({ lowercase: true, trim: true })
   public adminEmail?: string;
 
-  // TODO: improve this code
-  @prop({ index: true, type: () => [String] })
-  public addresses?: string[];
-  @prop({ index: true, type: () => [String] })
-  public cities?: string[];
-  @prop({ index: true, type: () => [String] })
-  public states?: string[];
-  @prop({ index: true, type: () => [String] })
-  public countries?: string[];
-  @prop({ type: () => [Number] })
-  public coordenateX?: number[];
-  @prop({ type: () => [Number] })
-  public coordenateY?: number[];
-  // finish
+  @prop({ index: true, default: [] })
+  public locations?: {
+    address: string;
+    city: string;
+    state: string;
+    country: string;
+    countryCode: string;
+    coordenateX: number;
+    coordenateY: number;
+  }[];
 
-  @prop()
-  public facebookUrl?: string;
+  @prop({ default: [] })
+  public socialMedia?: {
+    key: string;
+    name: string;
+    url: string;
+  }[];
 
-  @prop()
-  public instagramUrl?: string;
+  @prop({ default: [] })
+  public donations?: {
+    key: string;
+    title: string;
+    description: string;
+  }[];
 
-  @prop()
-  public twitterUrl?: string;
-
-  @prop()
-  public whatsappUrl?: string;
-
-  @prop({ type: () => [String] })
-  public donationLinks?: string[];
-
-  @prop()
-  public donationsProducts?: string;
-
-  @prop()
-  public donationBankAccountName?: string;
-
-  @prop()
-  public donationBankAccountType?: string;
-
-  @prop()
-  public donationBankAccountNumber?: string;
+  @prop({ default: [] })
+  public sponsors?: {
+    name: string;
+    img: string;
+    link: string;
+  }[];
 }
 
 export const OrganizationModel = getModelForClass(Organization);

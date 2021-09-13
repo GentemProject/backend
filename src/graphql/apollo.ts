@@ -10,6 +10,7 @@ import {
   CausesResolver,
   OrganizationResolver,
   UserResolver,
+  CountriesResolver,
 } from '../services';
 
 import { context } from './apollo-context';
@@ -22,6 +23,7 @@ export const resolvers = [
   CausesResolver,
   OrganizationResolver,
   UserResolver,
+  CountriesResolver,
 ];
 
 export const apolloServerConfig: ApolloServerExpressConfig = {
