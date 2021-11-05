@@ -40,7 +40,7 @@ export const OrganizationResolver = {
         orderBy: string;
         sortBy: string;
         causesId: string[];
-        countries: string[];
+        country: string;
         hasDonationLinks: boolean;
         hasDonationBank: boolean;
         hasDonationProducts: boolean;
@@ -65,11 +65,8 @@ export const OrganizationResolver = {
           };
         }
 
-        if (options.countries && options.countries.length > 0) {
-          const cleanedCountries = options.countries.filter(country => {
-            return country !== null || country !== '';
-          });
-          filters = { ...filters, countries: { $all: cleanedCountries } };
+        if (options.country) {
+          filters = { ...filters, countries: { $all: options.country } };
         }
 
         if (options.hasDonationLinks) {
@@ -110,7 +107,7 @@ export const OrganizationResolver = {
   Organization: {
     causes: async (organization: Organization) => {
       const causes = CausesResolver.Query.causes(null, {
-        ids: organization.causesId,
+        ids: organization?.primaryData?.causesId,
       });
 
       return causes;

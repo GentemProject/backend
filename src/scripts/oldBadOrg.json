@@ -1,0 +1,425 @@
+[
+  {
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [26],
+      "name": "Fundación Despierta Maracaibo",
+      "objective": "Servimos de Enlace comunicacional entre comunidades e instituciones publicas y privadas que quieren apoyar emprendimientos comunitarios"
+    },
+    "location": {
+      "city": "Maracaibo",
+      "country": "Venezuela"
+    },
+    "adminInfo": {
+      "adminName": "José Chávez",
+      "adminEmail": "charojovi@gmail.com"
+    }
+  },
+  {
+    "primaryData": {
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/214/logo.png",
+      "sponsors": [],
+      "causeId": [24],
+      "name": "Ser Animal",
+      "objective": "La única forma ética de solucionar la superpoblación animal, es a través de las campañas de esterilización."
+    },
+    "location": {
+      "country": "Argentina",
+      "city": "Quilmes"
+    },
+    "adminInfo": {
+      "adminname": "Yanina",
+      "adminemail": "info.ser.animal@gmail.com"
+    }
+  },
+  {
+    "organizationid": 215,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [24],
+      "name": "adopta.club",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/215/logo.jpg",
+      "objective": "Promovemos una cultura de adopción, respeto y protección animal 🐶❤️"
+    },
+    "location": {
+      "country": "Ecuador - Colombia",
+      "city": "Quito - Guayaquil - Bogotá"
+    },
+    "adminInfo": {
+      "adminname": "Luis Fernando",
+      "adminemail": "adoptclub@gmail.com"
+    }
+  },
+  {
+    "organizationid": 216,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [24],
+      "name": "Patitas de Belgrano",
+      "objective": "Rescate. Recuperacion.adopcion"
+    },
+    "location": {
+      "country": "Argentina",
+      "city": "Buenos aires"
+    },
+    "adminInfo": {
+      "adminname": "Luz",
+      "adminemail": "patitasdebelgrano@gmail.com"
+    }
+  },
+  {
+    "organizationid": 217,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [24],
+      "name": "Gatitos_de_caballito",
+      "objective": "Rescatamos,alimentamos, castramos y damos EN ADOPCION RESPONSABLE a Gatitos abandonados Ó en Situacion de VULNERABILIDAD ó Riesgo."
+    },
+    "location": {
+      "country": "Argentina",
+      "city": "CABA (Ciudad Autónoma de Buenos Aires )"
+    },
+    "adminInfo": {
+      "adminname": "Marta Guerriot",
+      "adminemail": "martaguerriot@yahoo.com.ar"
+    }
+  },
+  {
+    "organizationid": 218,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [2, 3, 5, 12, 19],
+      "name": "fundación brisas del norte",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/218/logo.jpg",
+      "objective": "somos una organizacion no gubernamental defensora de los derechos humanos"
+    },
+    "location": {
+      "country": "colombia",
+      "city": "riohacha"
+    },
+    "adminInfo": {
+      "adminname": "jairo luis ibarra caermona",
+      "adminemail": "brisasdelnorteriohacha@hotmail.com"
+    }
+  },
+  {
+    "organizationid": 219,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [24, 25],
+      "name": "manadacarialinda",
+      "objective": "Nosotros rescatamos, recuperamos y reinsertamos en buenos hogares a animalitos que estén en situación de calle"
+    },
+    "location": {
+      "country": "Venezuela",
+      "city": "Valencia municipio Naguanagua"
+    },
+    "adminInfo": {
+      "adminname": "César Castillo",
+      "adminemail": "manadacarialinda@gmail.com"
+    }
+  },
+  {
+    "organizationid": 220,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [24],
+      "name": "AMICS DELS GATS DE LA FLORESTA",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/220/logo.jpg",
+      "objective": "Mejora la vida de los gatos de la calle, los abandonados. Los llevamos al veterinario, los preparamos para buscarles un hogar."
+    },
+    "location": {
+      "country": "España",
+      "city": "Lleida/Barcelona"
+    },
+    "adminInfo": {
+      "adminname": "Ana",
+      "adminemail": "amicsgatsfloresta@yahoo.es"
+    }
+  },
+  {
+    "organizationid": 221,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [9],
+      "name": "fundacion fuori",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/221/logo.jpg",
+      "objective": "nuestra iniciativa es ayudar a personas con alimentos,repartimos bocadillos y les ayudamos con alimentos de momento es lo que hacemos"
+    },
+    "location": {
+      "country": "madrid españa",
+      "city": "madrid"
+    },
+    "adminInfo": {
+      "adminname": "marvin andrade",
+      "adminemail": "marvinandrade199@hotmail.com"
+    }
+  },
+  {
+    "organizationid": 222,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [26],
+      "name": "Fundación Cáncer de Piel Colombia",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/222/logo.png",
+      "objective": "Educar y promover hábitos saludables de cuidado para prevenir y detectar el cáncer de piel.​"
+    },
+    "location": {
+      "country": "Colombia",
+      "city": "Medellín"
+    },
+    "adminInfo": {
+      "adminname": "Andrea Jiménez",
+      "adminemail": "comunicaciones@clinicaaurora.co"
+    }
+  },
+  {
+    "organizationid": 223,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [16, 26],
+      "name": "TOComunidad petfriendly 🐾",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/223/logo.jpg",
+      "objective": "Grupos de apoyo. Educación y toma de conciencia. En lucha contra el estigma. Orientación internacional para conseguir ayuda Profesional."
+    },
+    "location": {
+      "country": "Todo el mundo.",
+      "city": "En todo el mundo"
+    },
+    "adminInfo": {
+      "adminname": "Natalia",
+      "adminemail": "comunidad.toc@gmail.com"
+    }
+  },
+  {
+    "organizationid": 224,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [2, 3, 1, 25, 26],
+      "name": "Corporación Medellín deportiva",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/224/logo.jpg",
+      "objective": "Formar en capacidades humanos a niños, niñas y adolescentes a través de actividades deportivas, artísticas, culturales y sociales"
+    },
+    "location": {
+      "country": "Colombia",
+      "city": "Medellín"
+    },
+    "adminInfo": {
+      "adminname": "Manuel Castrillón",
+      "adminemail": "corporacionmedellindeportiva@gmail.com"
+    }
+  },
+  {
+    "organizationid": 225,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [1, 6, 5, 3, 25],
+      "name": "Fundacion para el desarrollo integral del niño \"Creciendo con Amor\"",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/225/logo.png",
+      "objective": "Promover el desarrollo de actividades sociales, culturales ,educacionales, etc por medio de diversos proyectos que aporten a la sociedad."
+    },
+    "location": {
+      "country": "Colombia",
+      "city": "Cali"
+    },
+    "adminInfo": {
+      "adminname": "Luz Dary Sarria",
+      "adminemail": "creciendoconamor2016@gmail.com"
+    }
+  },
+  {
+    "organizationid": 226,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [2, 3, 9, 7, 12],
+      "name": "Corporación Para El Desarrollo Social inspirArte",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/226/logo.png",
+      "objective": "Contribuir a las comunidades socialmente vulneradas, ofreciendo alternativas de desarrollo y mejoramiento a su calidad de vida."
+    },
+    "location": {
+      "country": "Colombia",
+      "city": "Bogotá"
+    },
+    "adminInfo": {
+      "adminname": "Leonardo Carabali",
+      "adminemail": "corporacionsocialinspirarte@gmail.com"
+    }
+  },
+  {
+    "organizationid": 227,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [12, 19, 26],
+      "name": "Fundación de Atención al Migrante",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/227/logo.png",
+      "objective": "Atención, orientación y acogida de personas que por alguna causa han tenido que dejar su lugar de origen y hoy son vulnerables."
+    },
+    "location": {
+      "country": "Colombia",
+      "city": "Bogotá"
+    },
+    "adminInfo": {
+      "adminname": "Juan Esteban López Maldonado",
+      "adminemail": "comunicaciones@famig.org"
+    }
+  },
+  {
+    "organizationid": 228,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [1, 3, 5, 12, 9],
+      "name": "Fundacion ayuda para ayudar",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/228/logo.jpg",
+      "objective": "Ayudar a las personas más vulnerables del momento."
+    },
+    "location": {
+      "country": "Colombia",
+      "city": "Bogotá"
+    },
+    "adminInfo": {
+      "adminname": "William Romero",
+      "adminemail": "fundacionayudaparaayudar15@gmail.com"
+    }
+  },
+  {
+    "organizationid": 229,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [1, 2, 9, 6, 5],
+      "name": "Cáritas",
+      "objective": "Comentamos la caridad y estamos al servicio de los más pobres y de sus comunidades cristianas"
+    },
+    "location": {
+      "country": "En Venezuela",
+      "city": "Coro estado Falcón"
+    },
+    "adminInfo": {
+      "adminname": "Milagros Reyes",
+      "adminemail": "milagrosreyeslugo@gmail.com"
+    }
+  },
+  {
+    "organizationid": 230,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [2],
+      "name": "Seamos Solidarios",
+      "objective": "Hacemos un puente entre quién necesita algo y quién quiere ayudar"
+    },
+    "location": {
+      "country": "Argentina",
+      "city": "Presidencia Roque Sáenz Peña chaco"
+    },
+    "adminInfo": {
+      "adminname": "Adriana",
+      "adminemail": "danivle358@gmail.com"
+    }
+  },
+  {
+    "organizationid": 231,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [24],
+      "name": "Alma de kiltro",
+      "objective": "Ayudar a los animales callejeros alimentando,esterilizando y buscando adoptantes responsables. También ayudamos refugios establecidos"
+    },
+    "location": {
+      "country": "Chile",
+      "city": "Santiago"
+    },
+    "adminInfo": {
+      "adminname": "Marcela Peña",
+      "adminemail": "Almadekiltro@gmail.com"
+    }
+  },
+  {
+    "organizationid": 232,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [9, 7, 2, 3, 1],
+      "name": "Merendero MamaSilvia",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/232/logo.jpeg",
+      "objective": "Alimentar conscientemente a quienes más lo necesitan"
+    },
+    "location": {
+      "country": "Argentina",
+      "city": "Buenos Aires"
+    },
+    "adminInfo": {
+      "adminname": "Camila",
+      "adminemail": "Cacevedo@amsanjorge.com.ar"
+    }
+  },
+  {
+    "organizationid": 233,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [1, 9],
+      "name": "Fundacion Dejando Huella",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/233/logo.jpg",
+      "objective": "Atención integral de niños, niñas y familias adolescentes."
+    },
+    "location": {
+      "country": "Colombia",
+      "city": "Medellin"
+    },
+    "adminInfo": {
+      "adminname": "Santiago Gutierrez Gil",
+      "adminemail": "fdejando.huella@hotmail.com"
+    }
+  },
+  {
+    "organizationid": 234,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [6, 5, 3, 2, 0],
+      "name": "Gran Futuro Foundation",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/234/logo.png",
+      "objective": "Ayudar a niños y familias en las comunidades más pobres y vulnerables de América Latina con su alimentación, atención medica, etc."
+    },
+    "location": {
+      "country": "Venezuela, Ecuador",
+      "city": "Trujillo, Valera, El Vigia, Ciudad Bolivar, Acarigua, Puerto Ordaz, Carabobo, Quito"
+    },
+    "adminInfo": {
+      "adminname": "Richard Cores",
+      "adminemail": "granfuturocorp@gmail.com"
+    }
+  },
+  {
+    "organizationid": 235,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [2, 9, 19, 10, 5],
+      "name": "FUNDACIÓN BEATRIZ LONDOÑO",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/235/logo.png",
+      "objective": "Buscamos reducir la pobreza y aumentar la equidad mediante programas de Vivienda, Alimentación, Educación y Formación para el Empleo"
+    },
+    "location": {
+      "country": "Colombia",
+      "city": "Medellín"
+    },
+    "adminInfo": {
+      "adminname": "Isabel Builes",
+      "adminemail": "direccion@fundacionbeatrizlondono.org"
+    }
+  },
+  {
+    "organizationid": 236,
+    "primaryData": {
+      "sponsors": [],
+      "causeId": [0, 1, 2, 11, 9],
+      "name": "Fundación Cenainco",
+      "logo": "https://s3.amazonaws.com/gentem.org/ngos/236/logo.jpeg",
+      "objective": "Orientar, asesorar y ejecutar procesos sociales para promover el desarrollo humano y el bienestar de grupos poblaciones vulnerables"
+    },
+    "location": {
+      "country": "Colombia",
+      "city": "Bogota, cundinamarca, Amazonas"
+    },
+    "adminInfo": {
+      "adminname": "Alejandra Sánchez Coronado - Dir. Comunicaciones",
+      "adminemail": "cenainco@msn.com"
+    }
+  }
+]

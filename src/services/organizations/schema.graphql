@@ -1,37 +1,58 @@
-type Organization {
-  id: ID
-  ownerId: String
-  causesId: [String]
-  causes: [Cause]
+type primaryData {
   slug: String
   logo: String
   name: String
   goal: String
   description: String
   useDonationsFor: String
+  causesId: [String]
+}
+
+type contact {
   email: String
   phone: String
   website: String
+}
+
+type adminData {
   adminFullName: String
   adminEmail: String
-  addresses: [String]
-  cities: [String]
-  states: [String]
-  countries: [String]
-  coordenateX: [Float]
-  coordenateY: [Float]
+}
+
+type location {
+  city: String
+  country: String
+  coordenateX: Float
+  coordenateY: Float
+}
+
+type socialMedia {
   facebookUrl: String
   instagramUrl: String
   twitterUrl: String
   whatsappUrl: String
+}
+
+type donationData {
   donationLinks: [String]
   donationsProducts: String
   donationBankAccountName: String
-  donationBankAccountType: String
-  donationBankAccountNumber: String
   hasDonationLinks: Boolean
   hasDonationBank: Boolean
   hasDonationProducts: Boolean
+}
+
+type Organization {
+  id: ID
+  ownerId: String
+
+  causes: [Cause]
+  primaryData: primaryData
+  contact: contact
+  adminData: adminData
+  location: location
+  donationData: donationData
+
   createdAt: Date
   updatedAt: Date
 }
