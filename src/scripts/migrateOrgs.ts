@@ -30,35 +30,44 @@ async function main() {
 
       return {
         // ownerId: undefined,
-        causesId: newCauses,
         // slug: organization.slug,
-        logo: organization.primaryData.logo,
-        name: organization.primaryData.name,
-        goal: organization.primaryData.objective,
-        description: organization.primaryData.description,
-        useDonationsFor: organization.primaryData.howUseDonation,
-        email: organization.contact?.email,
-        phone: organization.contact?.phone,
-        website: organization.contact?.website,
-        adminFullName: organization.adminInfo?.adminName,
-        adminEmail: organization.adminInfo?.adminEmail,
-        addresses: [''],
-        cities: [organization.location?.city || ''],
-        states: [''],
-        countries: [organization.location?.country || ''],
-        coordenateX: [organization.location?.coordenates?.x || 0],
-        coordenateY: [organization.location?.coordenates?.y || 0],
-        facebookUrl: organization.socialMedia?.facebook,
-        instagramUrl: organization.socialMedia?.instagram,
-        twitterUrl: organization.socialMedia?.twitter,
-        whatsappUrl: organization.socialMedia?.whatsapp
-          ? `https://wa.me/${organization.socialMedia?.whatsapp}`
-          : '',
-        donationLinks: [organization.donationData?.link || ''],
-        donationsProducts: organization.donationData?.products,
-        donationBankAccountName: organization.donationData?.bankAccount,
-        donationBankAccountType: '',
-        donationBankAccountNumber: '',
+        primaryData: {
+          name: organization.primaryData.name,
+          causesId: newCauses,
+          logo: organization?.primaryData?.logo,
+          goal: organization?.primaryData?.objective,
+          description: organization?.primaryData?.description,
+          useDonationsFor: organization?.primaryData?.howUseDonation,
+          sponsors: organization?.primaryData?.sponsors,
+        },
+        contact: {
+          email: organization?.contact?.email,
+          phone: organization?.contact?.phone,
+          website: organization?.contact?.website,
+        },
+        adminInfo: {
+          adminFullName: organization?.adminInfo?.adminName,
+          adminEmail: organization?.adminInfo?.adminEmail,
+        },
+        socialMedia: {
+          facebookUrl: organization?.socialMedia?.facebook,
+          instagramUrl: organization?.socialMedia?.instagram,
+          twitterUrl: organization?.socialMedia?.twitter,
+          whatsappUrl: organization?.socialMedia?.whatsapp
+            ? `https://wa.me/${organization?.socialMedia?.whatsapp}`
+            : '',
+        },
+        donationData: {
+          donationLinks: [organization.donationData?.link || ''],
+          donationsProducts: organization.donationData?.products,
+          donationBankAccountName: organization.donationData?.bankAccount,
+        },
+        location: {
+          city: organization.location?.city,
+          country: organization.location?.country,
+          coordenateX: organization.location?.coordenates?.x || 0,
+          coordenateY: organization.location?.coordenates?.y || 0,
+        },
       };
     });
 
