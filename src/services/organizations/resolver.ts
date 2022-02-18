@@ -55,7 +55,7 @@ export const OrganizationResolver = {
         const sort = { [orderBy]: sortBy };
 
         let filters = {};
-        if (options.causesId && options.causesId.length > 0) {
+        if (options.causesId && options.causesId.length > 0 && options.causesId[0] !== '') {
           const cleanedCausesId = options.causesId.filter(causeId => {
             return causeId !== null || causeId !== '';
           });
@@ -65,7 +65,7 @@ export const OrganizationResolver = {
           };
         }
 
-        if (options.countries && options.countries.length > 0) {
+        if (options.countries && options.countries.length > 0 && options.countries[0] !== '') {
           const cleanedCountries = options.countries.filter(country => {
             return country !== null || country !== '';
           });
@@ -94,7 +94,7 @@ export const OrganizationResolver = {
           count,
           rows,
         };
-        console.log(result);
+
         return result;
       } catch (error) {
         logger.error(`error getOrganizations: "${error.message}"`);

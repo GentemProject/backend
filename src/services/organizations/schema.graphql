@@ -1,4 +1,4 @@
-type Organization {
+type oldOrganization {
   id: ID
   ownerId: String
   causesId: [String]
@@ -38,6 +38,54 @@ type Organization {
 type OrganizationsPayload {
   count: Float
   rows: [Organization]
+}
+
+type Organization {
+  _id: String
+  primaryData: PrimaryData
+  contact: Contact
+  adminInfo: AdminInfo
+  socialMedia: SocialMedia
+  donationData: DonationData
+  location: Location
+}
+
+type PrimaryData {
+  logo: String
+  sponsors: [String]
+  CausesId: [String]
+  _id: String
+  name: String
+  goal: String
+  slug: String
+}
+
+type Contact {
+  email: String
+  website: String
+  phone: String
+}
+
+type AdminInfo {
+  adminFullName: String
+  adminEmail: String
+}
+
+type SocialMedia {
+  facebookUrl: String
+  instagramUrl: String
+  whatsappUrl: String
+}
+
+type DonationData {
+  donationLinks: [String]
+  donationsProducts: String
+  donationBankAccountName: String
+}
+
+type Location {
+  coordenateX: Float
+  coordenateY: Float
 }
 
 type Query {

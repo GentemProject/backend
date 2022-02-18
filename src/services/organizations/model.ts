@@ -13,6 +13,11 @@ import { slugify } from '../../utils';
   }
 })
 @ModelOptions({ schemaOptions: { timestamps: true } })
+class primaryData {
+  @prop({ trim: true, lowercase: true, default: 'https://gentem.s3.amazonaws.com/default.jpg' })
+  public logo?: string;
+}
+
 export class Organization {
   @prop({ index: true })
   public ownerId?: mongoose.Types.ObjectId;
@@ -23,8 +28,8 @@ export class Organization {
   @prop({ index: true, unique: true })
   public slug?: string;
 
-  @prop({ trim: true, lowercase: true, default: 'https://gentem.s3.amazonaws.com/default.jpg' })
-  public logo?: string;
+  @prop()
+  public primaryData?: primaryData;
 
   @prop({ index: true, required: true, lowercase: true, trim: true })
   public name: string;
