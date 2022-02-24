@@ -29,36 +29,44 @@ async function main() {
         .map(cause => mongoose.Types.ObjectId(cause._id));
 
       return {
-        // ownerId: undefined,
-        causesId: newCauses,
-        // slug: organization.slug,
-        logo: organization.primaryData.logo,
-        name: organization.primaryData.name,
-        goal: organization.primaryData.objective,
-        description: organization.primaryData.description,
-        useDonationsFor: organization.primaryData.howUseDonation,
-        email: organization.contact?.email,
-        phone: organization.contact?.phone,
-        website: organization.contact?.website,
-        adminFullName: organization.adminInfo?.adminName,
-        adminEmail: organization.adminInfo?.adminEmail,
-        addresses: [''],
-        cities: [organization.location?.city || ''],
-        states: [''],
-        countries: [organization.location?.country || ''],
-        coordenateX: [organization.location?.coordenates?.x || 0],
-        coordenateY: [organization.location?.coordenates?.y || 0],
-        facebookUrl: organization.socialMedia?.facebook,
-        instagramUrl: organization.socialMedia?.instagram,
-        twitterUrl: organization.socialMedia?.twitter,
-        whatsappUrl: organization.socialMedia?.whatsapp
-          ? `https://wa.me/${organization.socialMedia?.whatsapp}`
-          : '',
-        donationLinks: [organization.donationData?.link || ''],
-        donationsProducts: organization.donationData?.products,
-        donationBankAccountName: organization.donationData?.bankAccount,
-        donationBankAccountType: '',
-        donationBankAccountNumber: '',
+        ownerId: undefined,
+        adminInfo: {
+          adminFullName: organization.adminInfo?.adminName,
+          adminEmail: organization.adminInfo?.adminEmail,
+        },
+        contact: {
+          email: organization.contact?.email,
+          phone: organization.contact?.phone,
+          website: organization.contact?.website,
+        },
+        donationData: {
+          donationLinks: [organization.donationData?.link || ''],
+          donationsProducts: organization.donationData?.products,
+          donationBankAccountName: organization.donationData?.bankAccount,
+        },
+        location: {
+          city: organization.location?.city || '',
+          country: organization.location?.country || '',
+          coordenateX: organization.location?.coordenates?.x || 0,
+          coordenateY: organization.location?.coordenates?.y || 0,
+        },
+        primaryData: {
+          slug: organization.slug,
+          logo: organization.primaryData.logo,
+          name: organization.primaryData.name,
+          goal: organization.primaryData.objective,
+          description: organization.primaryData.description,
+          useDonationsFor: organization.primaryData.howUseDonation,
+          causesId: newCauses,
+        },
+        socialMedia: {
+          facebookUrl: organization.socialMedia?.facebook,
+          instagramUrl: organization.socialMedia?.instagram,
+          twitterUrl: organization.socialMedia?.twitter,
+          whatsappUrl: organization.socialMedia?.whatsapp
+            ? `https://wa.me/${organization.socialMedia?.whatsapp}`
+            : '',
+        },
       };
     });
 

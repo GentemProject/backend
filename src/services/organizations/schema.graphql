@@ -43,6 +43,7 @@ type OrganizationsPayload {
 type Organization {
   _id: String
   primaryData: PrimaryData
+  causes: [Cause]
   contact: Contact
   adminInfo: AdminInfo
   socialMedia: SocialMedia
@@ -53,11 +54,13 @@ type Organization {
 type PrimaryData {
   logo: String
   sponsors: [String]
-  CausesId: [String]
+  causesId: [String]
   _id: String
   name: String
+  description: String
   goal: String
   slug: String
+  useDonationsFor: String
 }
 
 type Contact {
@@ -75,6 +78,7 @@ type SocialMedia {
   facebookUrl: String
   instagramUrl: String
   whatsappUrl: String
+  twitterUrl: String
 }
 
 type DonationData {
@@ -86,6 +90,8 @@ type DonationData {
 type Location {
   coordenateX: Float
   coordenateY: Float
+  country: String
+  city: String
 }
 
 type Query {
@@ -96,7 +102,7 @@ type Query {
     orderBy: String
     sortBy: String
     causesId: [String]
-    countries: [String]
+    countries: String
     hasDonationLinks: Boolean
     hasDonationBank: Boolean
     hasDonationProducts: Boolean

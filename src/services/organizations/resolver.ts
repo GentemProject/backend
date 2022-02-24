@@ -71,7 +71,6 @@ export const OrganizationResolver = {
           });
           filters = { ...filters, countries: { $all: cleanedCountries } };
         }
-
         if (options.hasDonationLinks) {
           filters = { ...filters, donationLinks: { $exists: true, $ne: [''], $not: { $size: 0 } } };
         }
@@ -89,6 +88,8 @@ export const OrganizationResolver = {
           .skip(page > 0 ? (page - 1) * limit : 0)
           .sort(sort)
           .limit(limit);
+
+        console.log(rows);
 
         const result = {
           count,
@@ -110,7 +111,7 @@ export const OrganizationResolver = {
   Organization: {
     causes: async (organization: Organization) => {
       const causes = CausesResolver.Query.causes(null, {
-        ids: organization.causesId,
+        ids: organization.primaryData && organization.primaryData.causesId,
       });
 
       return causes;

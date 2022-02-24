@@ -1,12 +1,13 @@
 import mongoose from 'mongoose';
 import { getModelForClass, ModelOptions, pre, prop } from '@typegoose/typegoose';
-
 import { slugify } from '../../utils';
 
 @pre<Organization>('save', function (next) {
   if (!this.isModified('name')) return next();
   try {
-    this.slug = slugify(this.name);
+    if (this.primaryData) {
+      this.primaryData.slug = slugify(this.primaryData?.name);
+    }
     return next();
   } catch (error) {
     return next(error);
@@ -16,33 +17,30 @@ import { slugify } from '../../utils';
 class primaryData {
   @prop({ trim: true, lowercase: true, default: 'https://gentem.s3.amazonaws.com/default.jpg' })
   public logo?: string;
-}
-
-export class Organization {
-  @prop({ index: true })
-  public ownerId?: mongoose.Types.ObjectId;
-
-  @prop({ index: true, required: true, type: () => [mongoose.Types.ObjectId] })
-  public causesId: mongoose.Types.ObjectId[];
-
-  @prop({ index: true, unique: true })
-  public slug?: string;
-
-  @prop()
-  public primaryData?: primaryData;
-
-  @prop({ index: true, required: true, lowercase: true, trim: true })
-  public name: string;
 
   @prop({ trim: true })
   public goal?: string;
 
   @prop({ trim: true })
-  public description?: string;
-
-  @prop({ trim: true })
   public useDonationsFor?: string;
 
+  @prop({ index: true, type: () => [String] })
+  public sponsors?: string[];
+
+  @prop({ index: true, required: true, type: () => [mongoose.Types.ObjectId] })
+  public causesId: mongoose.Types.ObjectId[];
+
+  @prop({ trim: true })
+  public description?: string;
+
+  @prop({ index: true, required: true, lowercase: true, trim: true })
+  public name: string;
+
+  @prop({ index: true, unique: true })
+  public slug?: string;
+}
+@ModelOptions({ schemaOptions: { timestamps: true } })
+class contact {
   @prop({ trim: true })
   public email?: string;
 
@@ -51,28 +49,19 @@ export class Organization {
 
   @prop({ lowercase: true, trim: true })
   public website?: string;
+}
 
+@ModelOptions({ schemaOptions: { timestamps: true } })
+class adminInfo {
   @prop({ trim: true })
   public adminFullName?: string;
 
   @prop({ lowercase: true, trim: true })
   public adminEmail?: string;
+}
 
-  // TODO: improve this code
-  @prop({ index: true, type: () => [String] })
-  public addresses?: string[];
-  @prop({ index: true, type: () => [String] })
-  public cities?: string[];
-  @prop({ index: true, type: () => [String] })
-  public states?: string[];
-  @prop({ index: true, type: () => [String] })
-  public countries?: string[];
-  @prop({ type: () => [Number] })
-  public coordenateX?: number[];
-  @prop({ type: () => [Number] })
-  public coordenateY?: number[];
-  // finish
-
+@ModelOptions({ schemaOptions: { timestamps: true } })
+class socialMedia {
   @prop()
   public facebookUrl?: string;
 
@@ -84,7 +73,10 @@ export class Organization {
 
   @prop()
   public whatsappUrl?: string;
+}
 
+@ModelOptions({ schemaOptions: { timestamps: true } })
+class donationData {
   @prop({ type: () => [String] })
   public donationLinks?: string[];
 
@@ -93,12 +85,41 @@ export class Organization {
 
   @prop()
   public donationBankAccountName?: string;
+}
+
+@ModelOptions({ schemaOptions: { timestamps: true } })
+class location {
+  @prop()
+  public city?: string;
+  @prop()
+  public country?: string;
+  @prop()
+  public coordenateX?: number;
+  @prop()
+  public coordenateY?: number;
+}
+
+export class Organization {
+  @prop({ index: true })
+  public ownerId?: mongoose.Types.ObjectId;
 
   @prop()
-  public donationBankAccountType?: string;
+  public primaryData?: primaryData;
 
   @prop()
-  public donationBankAccountNumber?: string;
+  public contact?: contact;
+
+  @prop()
+  public adminInfo?: adminInfo;
+
+  @prop()
+  public socialMedia?: socialMedia;
+
+  @prop()
+  public donationData?: donationData;
+
+  @prop()
+  public location?: location;
 }
 
 export const OrganizationModel = getModelForClass(Organization);
