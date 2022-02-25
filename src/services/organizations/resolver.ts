@@ -20,10 +20,13 @@ export const OrganizationResolver = {
           filters = { ...filters, _id: options.id };
         }
         if (options.slug) {
-          filters = { ...filters, slug: options.slug };
+          filters = {
+            ...filters,
+            'primaryData.slug': options.slug,
+          };
         }
-
         const organization = await OrganizationModel.findOne(filters).exec();
+        console.log(organization, 'here');
 
         return organization;
       } catch (error) {
@@ -40,7 +43,7 @@ export const OrganizationResolver = {
         orderBy: string;
         sortBy: string;
         causesId: string[];
-        countries: string[];
+        country: string;
         hasDonationLinks: boolean;
         hasDonationBank: boolean;
         hasDonationProducts: boolean;
@@ -64,23 +67,23 @@ export const OrganizationResolver = {
             causesId: { $all: cleanedCausesId },
           };
         }
-
-        if (options.countries && options.countries.length > 0 && options.countries[0] !== '') {
-          const cleanedCountries = options.countries.filter(country => {
-            return country !== null || country !== '';
-          });
-          filters = { ...filters, countries: { $all: cleanedCountries } };
+        if (options.country) {
+          filters = { ...filters, 'location.country': options.country };
         }
+
         if (options.hasDonationLinks) {
-          filters = { ...filters, donationLinks: { $exists: true, $ne: [''], $not: { $size: 0 } } };
+          filters = {
+            ...filters,
+            'donationData.donationLinks': { $exists: true, $ne: [''], $not: { $size: 0 } },
+          };
         }
 
         if (options.hasDonationBank) {
-          filters = { ...filters, donationBankAccountName: { $exists: true } };
+          filters = { ...filters, 'donationData.donationBankAccountName': { $exists: true } };
         }
 
         if (options.hasDonationProducts) {
-          filters = { ...filters, donationsProducts: { $exists: true } };
+          filters = { ...filters, 'donationData.donationsProducts': { $exists: true } };
         }
 
         const count = await OrganizationModel.find(filters).countDocuments();
@@ -88,8 +91,6 @@ export const OrganizationResolver = {
           .skip(page > 0 ? (page - 1) * limit : 0)
           .sort(sort)
           .limit(limit);
-
-        console.log(rows);
 
         const result = {
           count,

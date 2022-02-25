@@ -102,7 +102,7 @@ type Query {
     orderBy: String
     sortBy: String
     causesId: [String]
-    countries: String
+    country: String
     hasDonationLinks: Boolean
     hasDonationBank: Boolean
     hasDonationProducts: Boolean
