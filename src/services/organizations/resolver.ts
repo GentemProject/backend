@@ -20,9 +20,11 @@ export const OrganizationResolver = {
           filters = { ...filters, _id: options.id };
         }
         if (options.slug) {
-          filters = { ...filters, slug: options.slug };
+          filters = {
+            ...filters,
+            'primaryData.slug': options.slug,
+          };
         }
-
         const organization = await OrganizationModel.findOne(filters).exec();
 
         return organization;
@@ -55,7 +57,7 @@ export const OrganizationResolver = {
         const sort = { [orderBy]: sortBy };
 
         let filters = {};
-        if (options.causesId && options.causesId.length > 0) {
+        if (options.causesId && options.causesId.length > 0 && options.causesId[0] !== '') {
           const cleanedCausesId = options.causesId.filter(causeId => {
             return causeId !== null || causeId !== '';
           });
@@ -64,21 +66,23 @@ export const OrganizationResolver = {
             causesId: { $all: cleanedCausesId },
           };
         }
-
         if (options.country) {
-          filters = { ...filters, countries: { $all: options.country } };
+          filters = { ...filters, 'location.country': options.country };
         }
 
         if (options.hasDonationLinks) {
-          filters = { ...filters, donationLinks: { $exists: true, $ne: [''], $not: { $size: 0 } } };
+          filters = {
+            ...filters,
+            'donationData.donationLinks': { $exists: true, $ne: [''], $not: { $size: 0 } },
+          };
         }
 
         if (options.hasDonationBank) {
-          filters = { ...filters, donationBankAccountName: { $exists: true } };
+          filters = { ...filters, 'donationData.donationBankAccountName': { $exists: true } };
         }
 
         if (options.hasDonationProducts) {
-          filters = { ...filters, donationsProducts: { $exists: true } };
+          filters = { ...filters, 'donationData.donationsProducts': { $exists: true } };
         }
 
         const count = await OrganizationModel.find(filters).countDocuments();
@@ -91,7 +95,7 @@ export const OrganizationResolver = {
           count,
           rows,
         };
-        console.log(result);
+
         return result;
       } catch (error) {
         logger.error(`error getOrganizations: "${error.message}"`);
@@ -107,7 +111,7 @@ export const OrganizationResolver = {
   Organization: {
     causes: async (organization: Organization) => {
       const causes = CausesResolver.Query.causes(null, {
-        ids: organization?.primaryData?.causesId,
+        ids: organization.primaryData && organization.primaryData.causesId,
       });
 
       return causes;
