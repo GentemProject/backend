@@ -1,64 +1,97 @@
-type primaryData {
+type oldOrganization {
+  id: ID
+  ownerId: String
+  causesId: [String]
+  causes: [Cause]
   slug: String
   logo: String
   name: String
   goal: String
   description: String
   useDonationsFor: String
-  causesId: [String]
-}
-
-type contact {
   email: String
   phone: String
   website: String
-}
-
-type adminData {
   adminFullName: String
   adminEmail: String
-}
-
-type location {
-  city: String
-  country: String
-  coordenateX: Float
-  coordenateY: Float
-}
-
-type socialMedia {
+  addresses: [String]
+  cities: [String]
+  states: [String]
+  countries: [String]
+  coordenateX: [Float]
+  coordenateY: [Float]
   facebookUrl: String
   instagramUrl: String
   twitterUrl: String
   whatsappUrl: String
-}
-
-type donationData {
   donationLinks: [String]
   donationsProducts: String
   donationBankAccountName: String
+  donationBankAccountType: String
+  donationBankAccountNumber: String
   hasDonationLinks: Boolean
   hasDonationBank: Boolean
   hasDonationProducts: Boolean
-}
-
-type Organization {
-  id: ID
-  ownerId: String
-
-  causes: [Cause]
-  primaryData: primaryData
-  contact: contact
-  adminData: adminData
-  location: location
-  donationData: donationData
-
   createdAt: Date
   updatedAt: Date
 }
 type OrganizationsPayload {
   count: Float
   rows: [Organization]
+}
+
+type Organization {
+  _id: String
+  primaryData: PrimaryData
+  causes: [Cause]
+  contact: Contact
+  adminInfo: AdminInfo
+  socialMedia: SocialMedia
+  donationData: DonationData
+  location: Location
+}
+
+type PrimaryData {
+  logo: String
+  sponsors: [String]
+  causesId: [String]
+  _id: String
+  name: String
+  description: String
+  goal: String
+  slug: String
+  useDonationsFor: String
+}
+
+type Contact {
+  email: String
+  website: String
+  phone: String
+}
+
+type AdminInfo {
+  adminFullName: String
+  adminEmail: String
+}
+
+type SocialMedia {
+  facebookUrl: String
+  instagramUrl: String
+  whatsappUrl: String
+  twitterUrl: String
+}
+
+type DonationData {
+  donationLinks: [String]
+  donationsProducts: String
+  donationBankAccountName: String
+}
+
+type Location {
+  coordenateX: Float
+  coordenateY: Float
+  country: String
+  city: String
 }
 
 type Query {
@@ -69,7 +102,7 @@ type Query {
     orderBy: String
     sortBy: String
     causesId: [String]
-    countries: [String]
+    country: String
     hasDonationLinks: Boolean
     hasDonationBank: Boolean
     hasDonationProducts: Boolean
